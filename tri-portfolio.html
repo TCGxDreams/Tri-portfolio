@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRI — A Communicator's Field Notes, MMXXVI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,200;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,700;1,9..144,900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="admin-sync.js"></script>
+</head>
+
+<body>
+
+  <!-- PERSISTENT SCROLL HINT -->
+  <div class="scroll-hint" id="scrollHint" aria-hidden="true">
+    <span class="hint-line"></span>
+    <span class="hint-label">SCROLL</span>
+  </div>
+
+  <!-- GENERATIVE BACKGROUND CANVAS -->
+  <canvas id="paperCanvas" class="paper-bg"></canvas>
+
+  <!-- LIQUID THEME TRANSITION OVERLAY -->
+  <div class="theme-overlay" id="themeOverlay"></div>
+
+  <!-- FLOATING PROJECT PREVIEWS -->
+  <div class="floating-previews-container" id="floatingPreviews">
+    <div class="floating-preview-wrapper" id="previewWrapper">
+      <img class="floating-preview-img" src="" alt="Project Preview" id="previewImg">
+    </div>
+  </div>
+
+  <!-- PRELOADER -->
+  <div class="preloader" id="preloader">
+    <div class="pre-meta">
+      <span>EST. MMXXIII — HCMC</span>
+      <span>FOR RMIT COMMUNICATION · 2026</span>
+    </div>
+    <div class="pre-counter">
+      <span id="preNum">000</span><span class="pct">%</span>
+    </div>
+    <div class="pre-name" data-admin-slot="hero-name">MINH TRI · VO NGUYEN </div>
+    <div class="pre-tag" data-admin-slot="preloader-tag">a portfolio in print form</div>
+    <canvas id="preloaderInkCanvas" class="preloader-ink-canvas"></canvas>
+    <div class="press-roller" id="pressRoller"></div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-text" id="cursorText">Open</div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-mark">
+      <span class="dot"></span>
+      <span>Tri / Vol. I / 2026</span>
+    </div>
+    <div class="nav-menu">
+      <a href="#read"><span class="link-wrap"><span>Read</span><span>Read</span></span></a>
+      <a href="#works"><span class="link-wrap"><span>Works</span><span>Works</span></span></a>
+      <a href="#process"><span class="link-wrap"><span>Process</span><span>Process</span></span></a>
+      <a href="#dossier"><span class="link-wrap"><span>Dossier</span><span>Dossier</span></span></a>
+      <a href="#index"><span class="link-wrap"><span>Index</span><span>Index</span></span></a>
+    </div>
+    <div class="nav-controls">
+      <a href="admin.html" class="nav-btn" style="text-decoration: none;">
+        <span class="link-wrap"><span>Editor's Desk</span><span>Editor's Desk</span></span>
+      </a>
+      <button id="themeToggle" class="nav-btn" aria-label="Toggle Edition">
+        <span class="link-wrap"><span>Morning Ed.</span><span>Night Ed.</span></span>
+      </button>
+    </div>
+    <div class="nav-time" id="navTime">HCMC · 00:00:00</div>
+  </nav>
+
+  <!-- HERO / FRONT PAGE -->
+  <section class="hero">
+    <div class="hero-issue">
+      <span>The Tri Gazette</span>
+      <span class="issue-divider">
+        <span>No. 001</span>
+        <span>·</span>
+        <span>Vol. MMXXVI</span>
+        <span>·</span>
+        <span>Saigon Edition</span>
+      </span>
+      <span>One Issue · No Reprints</span>
+    </div>
+
+    <div class="hero-stage">
+      <div class="hero-display">
+        <div class="row reveal">
+          <span class="reveal-line" data-admin-slot="hero-row-1">A communicator</span>
+        </div>
+        <div class="row italic reveal">
+          <span class="reveal-line" data-admin-slot="hero-row-2">who refuses</span>
+        </div>
+        <div class="row outline reveal">
+          <span class="reveal-line" data-admin-slot="hero-row-3">to be <span class="star">✦</span> quiet.</span>
+        </div>
+      </div>
+
+      <aside class="hero-aside" data-admin-slot="hero-aside">
+        Front cover, all hands — a young communicator stakes his claim, prints his case, dares the page.
+      </aside>
+
+      <div class="hero-foot">
+        <div class="hero-foot-col">
+          <h4>The Subject</h4>
+          <p>Nguyen Minh <em>Tri</em>, b. 2008 — communicator-in-training, image-maker, occasional poet.</p>
+        </div>
+        <div class="hero-foot-col hero-foot-center">
+          <span class="glyph">§</span>
+        </div>
+        <div class="hero-foot-col hero-foot-right">
+          <h4>The Application</h4>
+          <p>Filed in pursuit of <em>RMIT Vietnam</em>, Bachelor of Communication, Class of 2030.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="word">Storytelling</span><span class="glyph">✦</span>
+      <span class="word italic">visual direction</span><span class="glyph">✦</span>
+      <span class="word">Brand strategy</span><span class="glyph">✦</span>
+      <span class="word italic">content systems</span><span class="glyph">✦</span>
+      <span class="word">Editorial design</span><span class="glyph">✦</span>
+      <span class="word italic">campaign craft</span><span class="glyph">✦</span>
+      <span class="word">Storytelling</span><span class="glyph">✦</span>
+      <span class="word italic">visual direction</span><span class="glyph">✦</span>
+      <span class="word">Brand strategy</span><span class="glyph">✦</span>
+      <span class="word italic">content systems</span><span class="glyph">✦</span>
+      <span class="word">Editorial design</span><span class="glyph">✦</span>
+      <span class="word italic">campaign craft</span><span class="glyph">✦</span>
+    </div>
+  </div>
+
+  <!-- INTRO / OPENING ARTICLE -->
+  <section class="intro" id="read">
+    <div class="intro-mark reveal">¶</div>
+    <div class="intro-meta reveal">
+      <strong>The Opener</strong>
+      Article 01 / pp. 02—03<br>
+      By the subject himself<br>
+      Read time: ninety seconds
+    </div>
+    <div class="intro-body reveal">
+      <p data-admin-slot="intro-p1">Có một câu hỏi mà <em>Tri</em> nghĩ suốt ba năm cấp ba: <strong>tại sao một câu chuyện hay vẫn có thể bị bỏ
+          qua?</strong></p>
+      <p data-admin-slot="intro-p2">Câu trả lời, theo thời gian, không nằm ở việc câu chuyện đó <em>có gì</em> — mà ở việc nó được <em>kể như thế
+          nào</em>. Cùng một sự thật, một tay viết tệ làm nó nhạt. Một bố cục sai làm nó loãng. Một tựa đề an toàn làm
+        nó trôi qua.</p>
+      <p data-admin-slot="intro-p3">Đó là lý do tôi chọn truyền thông. Không phải để nói to hơn — mà để <em>nói đúng cách</em>, để người đọc dừng
+        lại, nghiêng đầu, và <strong>thật sự nghĩ</strong>.</p>
+    </div>
+    <div class="intro-aside reveal">
+      Continued<br>
+      overleaf →<br><br>
+      See pp. 04<br>
+      onward
+    </div>
+  </section>
+
+  <!-- WORK / FEATURED PIECES -->
+  <section class="work" id="works">
+    <!-- HEADER: full-width, scrolls in BEFORE the pin -->
+    <header class="work-head">
+      <div class="work-head-meta">
+        <span>Featured pieces</span>
+        <span>pp. 04—09</span>
+        <span>5 selections</span>
+      </div>
+      <h2 class="work-head-title">
+        The <em>body</em><br>
+        of <span class="ws">work</span>,<br>
+        so <em>far</em>.
+      </h2>
+    </header>
+
+    <!-- STICKY ZONE: pin starts here, two-column layout -->
+    <div class="work-sticky-zone">
+      <div class="work-grid">
+        <!-- LEFT: sticky magazine frame with canvas -->
+        <aside class="work-sticky-frame">
+          <div class="frame-meta">
+            <span>Vol. I / No. 001</span>
+            <span>№ <span class="frame-num">001</span></span>
+          </div>
+          <div class="frame-canvas-wrap">
+            <canvas id="projectCanvas" class="project-canvas"></canvas>
+          </div>
+          <div class="frame-foot">
+            <span class="frame-title-out">Echoes of Saigon</span>
+            <span class="frame-year-out">2025</span>
+          </div>
+        </aside>
+
+        <!-- RIGHT: scrollable project list -->
+        <div class="project-list">
+          <article class="project active" data-idx="0" data-img="assets/echoes_of_saigon.png" data-title="Echoes of Saigon" data-year="2025">
+            <div class="project-num">№ 001</div>
+            <div class="project-body">
+              <h3 class="project-title"><em>Echoes</em> of Saigon <span class="year">[2025]</span></h3>
+              <p class="project-desc">A photo-essay tracing the city before sunrise — vendors, monks, motorbike repairmen. What Saigon sounds like when it forgets to perform.</p>
+              <div class="project-tags">
+                <span class="tag accent">Photo</span>
+                <span class="tag">Essay</span>
+                <span class="tag">Solo</span>
+              </div>
+            </div>
+            <div class="project-arrow">→</div>
+          </article>
+
+          <article class="project" data-idx="1" data-img="assets/tiem_coffee.png" data-title="Tiệm Coffee, rebranded" data-year="2024">
+            <div class="project-num">№ 002</div>
+            <div class="project-body">
+              <h3 class="project-title"><em>Tiệm</em> Coffee, rebranded <span class="year">[2024]</span></h3>
+              <p class="project-desc">Full identity system for a third-wave coffee shop in District 3 — logotype, menu, packaging, signage. Pro bono.</p>
+              <div class="project-tags">
+                <span class="tag accent">Brand</span>
+                <span class="tag">Print</span>
+                <span class="tag">Client</span>
+              </div>
+            </div>
+            <div class="project-arrow">→</div>
+          </article>
+
+          <article class="project" data-idx="2" data-img="assets/genz_louder.png" data-title="Gen Z, louder" data-year="2024">
+            <div class="project-num">№ 003</div>
+            <div class="project-body">
+              <h3 class="project-title">Gen Z, <em>louder</em> <span class="year">[2024]</span></h3>
+              <p class="project-desc">A school-wide social campaign on youth mental health — three short films, twenty-one posters, one open mic. 2,400 students reached.</p>
+              <div class="project-tags">
+                <span class="tag accent">Campaign</span>
+                <span class="tag">Video</span>
+                <span class="tag">Lead</span>
+              </div>
+            </div>
+            <div class="project-arrow">→</div>
+          </article>
+
+          <article class="project" data-idx="3" data-img="assets/lang_editorial.png" data-title="Lặng, an editorial" data-year="2025">
+            <div class="project-num">№ 004</div>
+            <div class="project-body">
+              <h3 class="project-title"><em>Lặng</em>, an editorial <span class="year">[2025]</span></h3>
+              <p class="project-desc">A self-published zine on silence in Vietnamese culture — 48 pages, riso-printed, sold out in two weeks. Featured in Behance Editorial.</p>
+              <div class="project-tags">
+                <span class="tag accent">Editorial</span>
+                <span class="tag">Print</span>
+                <span class="tag">Self-pub</span>
+              </div>
+            </div>
+            <div class="project-arrow">→</div>
+          </article>
+
+          <article class="project" data-idx="4" data-img="assets/rain_film_still.png" data-title="Short film: Mưa" data-year="2026">
+            <div class="project-num">№ 005</div>
+            <div class="project-body">
+              <h3 class="project-title">Short film: <em>Mưa</em> <span class="year">[2026]</span></h3>
+              <p class="project-desc">Seven-minute fiction short on a father and son sharing a rainstorm. Directed, edited, color-graded. Submitted to YxineFF '26.</p>
+              <div class="project-tags">
+                <span class="tag accent">Film</span>
+                <span class="tag">Direction</span>
+                <span class="tag">Festival</span>
+              </div>
+            </div>
+            <div class="project-arrow">→</div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="steps-stage">
+      <div class="process-head">
+        <h2 class="process-head-l">
+          How <em>he</em>
+          <span class="ws">works.</span>
+        </h2>
+        <p class="process-head-r">
+          Four steps. No shortcuts. The method behind the pages.
+        </p>
+      </div>
+      <div class="step-counter" id="stepCounter">
+        <span class="sc-current">01</span><span class="sc-sep">/</span><span class="sc-total">04</span>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">Step 01 / Listen</div>
+          <div class="step-glyph">i.</div>
+          <h3 class="step-title">Read the <em>room</em>.</h3>
+          <p class="step-body">Before any concept — interviews, observation, audience research. The story already
+            exists;
+            the job is to find it.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">Step 02 / Frame</div>
+          <div class="step-glyph">ii.</div>
+          <h3 class="step-title">Find the <em>angle</em>.</h3>
+          <p class="step-body">One sentence. One concept. If the brief can't fit on a postcard, it isn't ready yet.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">Step 03 / Make</div>
+          <div class="step-glyph">iii.</div>
+          <h3 class="step-title">Build the <em>thing</em>.</h3>
+          <p class="step-body">Photography, layout, copy, edit. Two rounds of critique with mentors. Sleep on it. Cut
+            what
+            doesn't earn its place.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">Step 04 / Ship</div>
+          <div class="step-glyph">iv.</div>
+          <h3 class="step-title">Send it <em>out</em>.</h3>
+          <p class="step-body">A piece left on a desktop is a piece that never existed. Publish, present, defend, learn,
+            repeat.</p>
+        </div>
+      </div>
+      <div class="step-progress">
+        <div class="step-progress-bar" id="stepProgressBar"></div>
+      </div>
+    </div>
+  </section>
+  <section class="philosophy">
+    <canvas id="philosophyWebGL" class="philosophy-webgl"></canvas>
+    <div class="philosophy-quote-mark">"</div>
+    <p class="philosophy-text reveal">
+      <span class="clause" data-admin-slot="philosophy-row-1">Communication is not the art of being <em>loud</em>—</span><br>
+      <span class="clause" data-admin-slot="philosophy-row-2">it is the art of making someone <span class="ws">listen</span></span><br>
+      <span class="clause" data-admin-slot="philosophy-row-3">when they had every reason <em>not to</em>.</span>
+    </p>
+    <div class="philosophy-attr reveal">Working principle · Tri · 2026</div>
+  </section>
+
+  <!-- CV / DOSSIER -->
+  <section class="cv" id="dossier">
+    <aside class="cv-sidebar">
+      <div class="label reveal">The Dossier</div>
+      <h2 class="reveal">What <em>he</em> brings to the desk.</h2>
+      <p class="reveal" style="margin-bottom: 32px;">A compact inventory of tools, fluencies, and disciplines —
+        practiced, polished, and ready to be
+        tested at university level.</p>
+
+      <!-- INTERACTIVE WIDGETS -->
+      <div class="sidebar-widgets reveal">
+        <!-- Widget 1: Availability Status -->
+        <div class="widget-card" id="widgetStatus">
+          <div class="widget-badge">
+            <span class="status-pulse"></span>
+            <span class="status-label">Active / Saigon</span>
+          </div>
+          <div class="widget-desc">Available for Autumn 2026 cohort commissions.</div>
+        </div>
+
+        <!-- Widget 2: Timezone Difference -->
+        <div class="widget-card" id="widgetTimezone">
+          <div class="widget-title">Time Sync</div>
+          <div class="tz-grid">
+            <div class="tz-col">
+              <div class="tz-lbl">Saigon (ICT)</div>
+              <div class="tz-val" id="tzHCMC">00:00</div>
+            </div>
+            <div class="tz-col">
+              <div class="tz-lbl">You</div>
+              <div class="tz-val" id="tzUser">00:00</div>
+            </div>
+          </div>
+          <div class="tz-diff" id="tzDiff">Calculating offset...</div>
+        </div>
+
+        <!-- Widget 3: Random Thought / Quote -->
+        <div class="widget-card" id="widgetThought">
+          <div class="widget-title">Field Notes</div>
+          <blockquote id="thoughtBox">"A clean layout is a clean mind."</blockquote>
+          <button id="thoughtBtn" class="thought-btn">✦ Draw Note</button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="cv-main">
+      <div class="cv-cell">
+        <div class="cv-cell-head">
+          <span class="cv-cat">Craft / 01</span>
+          <span>Since '23</span>
+        </div>
+        <h3 class="cv-cell-title">Visual <em>Storytelling</em></h3>
+        <p class="cv-cell-body">Concept boards, photo direction, sequencing. Knowing not only what to show, but what to
+          leave outside the frame.</p>
+        <div class="cv-cell-foot">
+          <span>Primary</span>
+          <span class="level">Lead level</span>
+        </div>
+      </div>
+
+      <div class="cv-cell">
+        <div class="cv-cell-head">
+          <span class="cv-cat">Craft / 02</span>
+          <span>Since '22</span>
+        </div>
+        <h3 class="cv-cell-title">Copy & <em>Editorial</em></h3>
+        <p class="cv-cell-body">Long-form features, headlines, social copy. Fluent across Vietnamese and English;
+          comfortable switching registers mid-sentence.</p>
+        <div class="cv-cell-foot">
+          <span>Daily practice</span>
+          <span class="level">Strong</span>
+        </div>
+      </div>
+
+      <div class="cv-cell">
+        <div class="cv-cell-head">
+          <span class="cv-cat">Craft / 03</span>
+          <span>Since '24</span>
+        </div>
+        <h3 class="cv-cell-title">Brand <em>Identity</em></h3>
+        <p class="cv-cell-body">Logo systems, type pairing, color logic, brand guidelines. Two paid clients, both local
+          F&B brands in HCMC.</p>
+        <div class="cv-cell-foot">
+          <span>Project-based</span>
+          <span class="level">Practiced</span>
+        </div>
+      </div>
+
+      <div class="cv-cell">
+        <div class="cv-cell-head">
+          <span class="cv-cat">Craft / 04</span>
+          <span>Daily</span>
+        </div>
+        <h3 class="cv-cell-title">Digital <em>Toolkit</em></h3>
+        <p class="cv-cell-body">Adobe Photoshop, Illustrator, InDesign, Premiere, Lightroom. Figma, CapCut, DaVinci
+          Resolve. Always learning the next one.</p>
+        <div class="cv-cell-foot">
+          <span>Self-taught</span>
+          <span class="level">Fluent</span>
+        </div>
+      </div>
+
+      <div class="cv-cell">
+        <div class="cv-cell-head">
+          <span class="cv-cat">Craft / 05</span>
+          <span>Since '25</span>
+        </div>
+        <h3 class="cv-cell-title">Strategy & <em>Research</em></h3>
+        <p class="cv-cell-body">Audience insight, competitive scans, content frameworks. Learning to ask the right "why"
+          before reaching for the "how".</p>
+        <div class="cv-cell-foot">
+          <span>In development</span>
+          <span class="level">Growing</span>
+        </div>
+      </div>
+
+      <div class="cv-cell">
+        <div class="cv-cell-head">
+          <span class="cv-cat">Beyond</span>
+          <span>Lifelong</span>
+        </div>
+        <h3 class="cv-cell-title">Reading, <em>seriously</em></h3>
+        <p class="cv-cell-body">Joan Didion, Nguyễn Ngọc Tư, John Berger, David Ogilvy. Plus the back issues of Kinfolk,
+          Wired, and Đẹp Magazine.</p>
+        <div class="cv-cell-foot">
+          <span>Diet</span>
+          <span class="level">Consistent</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / BACK PAGE -->
+  <section class="contact" id="index">
+    <div class="contact-issue">
+      <span>Back Cover</span>
+      <span>End of issue 001</span>
+      <span>Saigon · MMXXVI</span>
+    </div>
+
+    <div class="contact-display">
+      <h2 class="contact-headline reveal">
+        <span class="reveal-line" style="display:block;" data-admin-slot="contact-row-1">Let's make</span>
+        <span class="reveal-line row-2" style="display:block;" data-admin-slot="contact-row-2"><span class="ws">something</span></span>
+        <span class="reveal-line row-3" style="display:block;" data-admin-slot="contact-row-3"><em>loud enough</em></span>
+        <span class="reveal-line" style="display:block;" data-admin-slot="contact-row-4">to matter.</span>
+      </h2>
+    </div>
+
+    <div class="contact-cta">
+      <div class="contact-mail">
+        <a href="mailto:tri@portfolio.vn">tri.nguyen@portfolio.vn</a>
+      </div>
+      <div class="contact-channels">
+        <a href="#">Instagram — @tri.creates</a>
+        <a href="#">Behance — be.net/tringuyen</a>
+        <a href="#">LinkedIn — in/tringuyen</a>
+        <a href="#">Phone — +84 9XX XXX XXX</a>
+      </div>
+    </div>
+
+    <footer>
+      <div>© MMXXVI · Nguyen Minh Tri</div>
+      <div class="center">Set in Fraunces & JetBrains Mono · Made by hand</div>
+      <div class="right">Filed for RMIT Communication · Vol. I / 2026</div>
+    </footer>
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

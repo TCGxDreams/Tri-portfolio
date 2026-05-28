@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Tri Gazette — Editor's Desk (Admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,200;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --ink: #16130f;
+      --paper: #ede4d3;
+      --paper-warm: #e3d8c0;
+      --blood: #d63838;
+      --muted: #6f6655;
+      --line: rgba(22, 19, 15, 0.15);
+      --font-serif: 'Fraunces', 'Times New Roman', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    [data-theme="dark"] {
+      --ink: #ede4d3;
+      --paper: #12100e;
+      --paper-warm: #1a1715;
+      --blood: #ff5252;
+      --muted: #968c78;
+      --line: rgba(237, 228, 211, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    header {
+      border-bottom: 2px double var(--ink);
+      padding-bottom: 30px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-title h1 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+    
+    .header-title h1 em {
+      font-style: italic;
+      color: var(--blood);
+    }
+
+    .header-meta {
+      text-align: right;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* GRID LAYOUT */
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+    }
+
+    @media (max-width: 900px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      body {
+        padding: 40px 20px;
+      }
+    }
+
+    .panel-section {
+      border: 1px solid var(--line);
+      padding: 30px;
+      background: var(--paper-warm);
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .panel-section h2 {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 24px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 10px;
+      color: var(--blood);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      color: var(--muted);
+    }
+
+    .color-picker-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: var(--paper);
+      padding: 10px;
+      border: 1px solid var(--line);
+    }
+
+    .color-picker-wrapper input[type="color"] {
+      border: none;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .color-picker-wrapper input[type="text"] {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--ink);
+      text-transform: uppercase;
+      outline: none;
+    }
+
+    /* TEXT FIELDS */
+    .form-group input[type="text"],
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group textarea:focus {
+      border-color: var(--blood);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .theme-switch-btn {
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .theme-switch-btn:hover {
+      opacity: 0.8;
+    }
+
+    /* ACTION BAR */
+    .action-bar {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      padding-top: 30px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid var(--ink);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--blood);
+      color: var(--paper);
+      border-color: var(--blood);
+    }
+
+    .btn-primary:hover {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(214, 56, 56, 0.05);
+      color: var(--blood);
+      border-color: var(--blood);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--muted);
+      border-color: var(--line);
+    }
+
+    .btn-outline:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .alert {
+      padding: 15px;
+      border: 1px solid var(--blood);
+      background: rgba(214, 56, 56, 0.08);
+      color: var(--ink);
+      font-size: 12px;
+      margin-bottom: 30px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-title">
+      <h1>The <em>Editor's</em> Desk</h1>
+      <p style="margin-top: 8px; color: var(--muted); font-size: 11px;">VOL. I / NO. 001 · PORTFOLIO CUSTOMIZER</p>
+    </div>
+    <div class="header-meta">
+      <span>Edition Control Console</span><br>
+      <span>Status: connected</span>
+    </div>
+  </header>
+
+  <div class="alert" id="statusAlert">Settings applied successfully! Reloading site settings...</div>
+
+  <button class="theme-switch-btn" id="themeToggle">Toggle Preview Theme</button>
+
+  <div class="admin-grid">
+    <!-- LEFT PANEL: COLORS -->
+    <div class="left-panel">
+      <div class="panel-section">
+        <h2>Morning Ed. (Light)</h2>
+        
+        <div class="form-group">
+          <label>Paper (Background)</label>
+          <div class="color-picker-wrapper">
+            <input type="color" id="light_paper" data-theme="light" data-variable="paper" value="#ede4d3">
+            <input type="text" id="light_paper_text" value="#ede4d3">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ink (Text / Borders)</label>
+          <div class="color-picker-wrapper">
+            <input type="color" id="light_ink" data-theme="light" data-variable="ink" value="#16130f">
+            <input type="text" id="light_ink_text" value="#16130f">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Blood (Accents / Red)</label>
+          <div class="color-picker-wrapper">
+            <input type="color" id="light_blood" data-theme="light" data-variable="blood" value="#d63838">
+            <input type="text" id="light_blood_text" value="#d63838">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Muted (Meta Text)</label>
+          <div class="color-picker-wrapper">
+            <input type="color" id="light_muted" data-theme="light" data-variable="muted" value="#6f6655">
+            <input type="text" id="light_muted_text" value="#6f6655">
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <h2>Night Ed. (Dark)</h2>
+
+        <div class="form-group">
+          <label>Paper (Background)</label>
+          <div class="color-picker-wrapper">
+            <input type="color" id="dark_paper" data-theme="dark" data-variable="paper" value="#12100e">
+            <input type="text" id="dark_paper_text" value="#12100e">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ink (Text / Borders)</label>
+          <div class="color-picker-wrapper">
+            <input type="color" id="dark_ink" data-theme="dark" data-variable="ink" value="#ede4d3">
+            <input type="text" id="dark_ink_text" value="#ede4d3">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Blood (Accents / Red)</label>
+          <div class="color-picker-wrapper">
+            <input type="color" id="dark_blood" data-theme="dark" data-variable="blood" value="#ff5252">
+            <input type="text" id="dark_blood_text" value="#ff5252">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Muted (Meta Text)</label>
+          <div class="color-picker-wrapper">
+            <input type="color" id="dark_muted" data-theme="dark" data-variable="muted" value="#968c78">
+            <input type="text" id="dark_muted_text" value="#968c78">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: TEXT SLOTS -->
+    <div class="right-panel">
+      <div class="panel-section">
+        <h2>Copywriting Desk (Text Content)</h2>
+
+        <div class="form-group">
+          <label>Hero / Preloader Name</label>
+          <input type="text" id="slot_hero-name" placeholder="MINH TRI · VO NGUYEN">
+        </div>
+
+        <div class="form-group">
+          <label>Preloader Subtitle</label>
+          <input type="text" id="slot_preloader-tag" placeholder="a portfolio in print form">
+        </div>
+
+        <div style="border-top: 1px dashed var(--line); margin: 25px 0;"></div>
+
+        <div class="form-group">
+          <label>Hero Headline (Row 1)</label>
+          <input type="text" id="slot_hero-row-1" placeholder="A communicator">
+        </div>
+
+        <div class="form-group">
+          <label>Hero Headline (Row 2)</label>
+          <input type="text" id="slot_hero-row-2" placeholder="who refuses">
+        </div>
+
+        <div class="form-group">
+          <label>Hero Headline (Row 3)</label>
+          <input type="text" id="slot_hero-row-3" placeholder="to be &lt;span class=&quot;star&quot;&gt;✦&lt;/span&gt; quiet.">
+        </div>
+
+        <div class="form-group">
+          <label>Hero Column Text</label>
+          <textarea id="slot_hero-aside" placeholder="Front cover, all hands — a young communicator stakes his claim..."></textarea>
+        </div>
+
+        <div style="border-top: 1px dashed var(--line); margin: 25px 0;"></div>
+
+        <div class="form-group">
+          <label>Intro Paragraph 1 (HTML allowed)</label>
+          <textarea id="slot_intro-p1" placeholder="Có một câu hỏi mà Tri nghĩ suốt ba năm cấp ba..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Intro Paragraph 2 (HTML allowed)</label>
+          <textarea id="slot_intro-p2" placeholder="Câu trả lời, theo thời gian, không nằm ở việc..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Intro Paragraph 3 (HTML allowed)</label>
+          <textarea id="slot_intro-p3" placeholder="Đó là lý do tôi chọn truyền thông..."></textarea>
+        </div>
+
+        <div style="border-top: 1px dashed var(--line); margin: 25px 0;"></div>
+
+        <div class="form-group">
+          <label>Philosophy Quote - Line 1 (HTML allowed)</label>
+          <input type="text" id="slot_philosophy-row-1" placeholder="Communication is not the art of being loud—">
+        </div>
+
+        <div class="form-group">
+          <label>Philosophy Quote - Line 2 (HTML allowed)</label>
+          <input type="text" id="slot_philosophy-row-2" placeholder="it is the art of making someone listen">
+        </div>
+
+        <div class="form-group">
+          <label>Philosophy Quote - Line 3 (HTML allowed)</label>
+          <input type="text" id="slot_philosophy-row-3" placeholder="when they had every reason not to.">
+        </div>
+
+        <div style="border-top: 1px dashed var(--line); margin: 25px 0;"></div>
+
+        <div class="form-group">
+          <label>Contact Headline - Row 1</label>
+          <input type="text" id="slot_contact-row-1" placeholder="Let's make">
+        </div>
+
+        <div class="form-group">
+          <label>Contact Headline - Row 2</label>
+          <input type="text" id="slot_contact-row-2" placeholder="something">
+        </div>
+
+        <div class="form-group">
+          <label>Contact Headline - Row 3</label>
+          <input type="text" id="slot_contact-row-3" placeholder="loud enough">
+        </div>
+
+        <div class="form-group">
+          <label>Contact Headline - Row 4</label>
+          <input type="text" id="slot_contact-row-4" placeholder="to matter.">
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <h2>Works Section Portfolio (Projects 01—05)</h2>
+        <p style="color: var(--muted); font-size: 11px; margin-bottom: 20px;">
+          Customize the five pieces displayed in the Works collection. You can change their title (HTML supported), image path, year, description, and comma-separated tags.
+        </p>
+
+        <!-- Project 1 -->
+        <details style="margin-bottom: 20px; border-bottom: 1px dashed var(--line); padding-bottom: 15px;">
+          <summary style="font-family: var(--font-serif); font-size: 18px; font-weight: 500; cursor: pointer; color: var(--ink); outline: none;">
+            Project 01: Echoes of Saigon
+          </summary>
+          <div style="margin-top: 15px;">
+            <div class="form-group">
+              <label>Title (HTML allowed)</label>
+              <input type="text" id="proj_0_title" placeholder="<em>Echoes</em> of Saigon">
+            </div>
+            <div class="form-group">
+              <label>Image URL / Path</label>
+              <input type="text" id="proj_0_img" placeholder="assets/echoes_of_saigon.png">
+            </div>
+            <div class="form-group">
+              <label>Year</label>
+              <input type="text" id="proj_0_year" placeholder="2025">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="proj_0_desc" placeholder="A photo-essay tracing the city..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Tags (Comma-separated)</label>
+              <input type="text" id="proj_0_tags" placeholder="Photo, Essay, Solo">
+            </div>
+          </div>
+        </details>
+
+        <!-- Project 2 -->
+        <details style="margin-bottom: 20px; border-bottom: 1px dashed var(--line); padding-bottom: 15px;">
+          <summary style="font-family: var(--font-serif); font-size: 18px; font-weight: 500; cursor: pointer; color: var(--ink); outline: none;">
+            Project 02: Tiệm Coffee, rebranded
+          </summary>
+          <div style="margin-top: 15px;">
+            <div class="form-group">
+              <label>Title (HTML allowed)</label>
+              <input type="text" id="proj_1_title" placeholder="<em>Tiệm</em> Coffee, rebranded">
+            </div>
+            <div class="form-group">
+              <label>Image URL / Path</label>
+              <input type="text" id="proj_1_img" placeholder="assets/tiem_coffee.png">
+            </div>
+            <div class="form-group">
+              <label>Year</label>
+              <input type="text" id="proj_1_year" placeholder="2024">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="proj_1_desc" placeholder="Full identity system..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Tags (Comma-separated)</label>
+              <input type="text" id="proj_1_tags" placeholder="Brand, Print, Client">
+            </div>
+          </div>
+        </details>
+
+        <!-- Project 3 -->
+        <details style="margin-bottom: 20px; border-bottom: 1px dashed var(--line); padding-bottom: 15px;">
+          <summary style="font-family: var(--font-serif); font-size: 18px; font-weight: 500; cursor: pointer; color: var(--ink); outline: none;">
+            Project 03: Gen Z, louder
+          </summary>
+          <div style="margin-top: 15px;">
+            <div class="form-group">
+              <label>Title (HTML allowed)</label>
+              <input type="text" id="proj_2_title" placeholder="Gen Z, <em>louder</em>">
+            </div>
+            <div class="form-group">
+              <label>Image URL / Path</label>
+              <input type="text" id="proj_2_img" placeholder="assets/genz_louder.png">
+            </div>
+            <div class="form-group">
+              <label>Year</label>
+              <input type="text" id="proj_2_year" placeholder="2024">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="proj_2_desc" placeholder="A school-wide campaign..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Tags (Comma-separated)</label>
+              <input type="text" id="proj_2_tags" placeholder="Campaign, Video, Lead">
+            </div>
+          </div>
+        </details>
+
+        <!-- Project 4 -->
+        <details style="margin-bottom: 20px; border-bottom: 1px dashed var(--line); padding-bottom: 15px;">
+          <summary style="font-family: var(--font-serif); font-size: 18px; font-weight: 500; cursor: pointer; color: var(--ink); outline: none;">
+            Project 04: Lặng, an editorial
+          </summary>
+          <div style="margin-top: 15px;">
+            <div class="form-group">
+              <label>Title (HTML allowed)</label>
+              <input type="text" id="proj_3_title" placeholder="<em>Lặng</em>, an editorial">
+            </div>
+            <div class="form-group">
+              <label>Image URL / Path</label>
+              <input type="text" id="proj_3_img" placeholder="assets/lang_editorial.png">
+            </div>
+            <div class="form-group">
+              <label>Year</label>
+              <input type="text" id="proj_3_year" placeholder="2025">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="proj_3_desc" placeholder="A self-published zine..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Tags (Comma-separated)</label>
+              <input type="text" id="proj_3_tags" placeholder="Editorial, Print, Self-pub">
+            </div>
+          </div>
+        </details>
+
+        <!-- Project 5 -->
+        <details style="margin-bottom: 10px;">
+          <summary style="font-family: var(--font-serif); font-size: 18px; font-weight: 500; cursor: pointer; color: var(--ink); outline: none;">
+            Project 05: Short film: Mưa
+          </summary>
+          <div style="margin-top: 15px;">
+            <div class="form-group">
+              <label>Title (HTML allowed)</label>
+              <input type="text" id="proj_4_title" placeholder="Short film: <em>Mưa</em>">
+            </div>
+            <div class="form-group">
+              <label>Image URL / Path</label>
+              <input type="text" id="proj_4_img" placeholder="assets/rain_film_still.png">
+            </div>
+            <div class="form-group">
+              <label>Year</label>
+              <input type="text" id="proj_4_year" placeholder="2026">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="proj_4_desc" placeholder="Seven-minute fiction short..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Tags (Comma-separated)</label>
+              <input type="text" id="proj_4_tags" placeholder="Film, Direction, Festival">
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- ACTION BAR -->
+    <div class="action-bar">
+      <button class="btn btn-outline" id="resetBtn">Reset Defaults</button>
+      <button class="btn btn-secondary" id="viewBtn">View Portfolio</button>
+      <button class="btn btn-primary" id="saveBtn">Apply & Save Updates</button>
+    </div>
+  </div>
+
+  <script>
+    const SETTINGS_KEY = 'tri_gazette_admin_settings';
+    
+    // Core default config values
+    const defaults = {
+      colors: {
+        light: {
+          paper: '#ede4d3',
+          ink: '#16130f',
+          blood: '#d63838',
+          muted: '#6f6655'
+        },
+        dark: {
+          paper: '#12100e',
+          ink: '#ede4d3',
+          blood: '#ff5252',
+          muted: '#968c78'
+        }
+      },
+      slots: {
+        'hero-name': 'MINH TRI · VO NGUYEN ',
+        'preloader-tag': 'a portfolio in print form',
+        'hero-row-1': 'A communicator',
+        'hero-row-2': 'who refuses',
+        'hero-row-3': 'to be <span class="star">✦</span> quiet.',
+        'hero-aside': 'Front cover, all hands — a young communicator stakes his claim, prints his case, dares the page.',
+        'intro-p1': 'Có một câu hỏi mà <em>Tri</em> nghĩ suốt ba năm cấp ba: <strong>tại sao một câu chuyện hay vẫn có thể bị bỏ qua?</strong>',
+        'intro-p2': 'Câu trả lời, theo thời gian, không nằm ở việc câu chuyện đó <em>có gì</em> — mà ở việc nó được <em>kể như thế nào</em>. Cùng một sự thật, một tay viết tệ làm nó nhạt. Một bố cục sai làm nó loãng. Một tựa đề an toàn làm nó trôi qua.',
+        'intro-p3': 'Đó là lý do tôi chọn truyền thông. Không phải để nói to hơn — mà để <em>nói đúng cách</em>, để người đọc dừng lại, nghiêng đầu, và <strong>thật sự nghĩ</strong>.',
+        'philosophy-row-1': 'Communication is not the art of being <em>loud</em>—',
+        'philosophy-row-2': 'it is the art of making someone <span class="ws">listen</span>',
+        'philosophy-row-3': 'when they had every reason <em>not to</em>.',
+        'contact-row-1': "Let's make",
+        'contact-row-2': '<span class="ws">something</span>',
+        'contact-row-3': '<em>loud enough</em>',
+        'contact-row-4': 'to matter.'
+      },
+      projects: [
+        {
+          title: '<em>Echoes</em> of Saigon',
+          img: 'assets/echoes_of_saigon.png',
+          year: '2025',
+          desc: 'A photo-essay tracing the city before sunrise — vendors, monks, motorbike repairmen. What Saigon sounds like when it forgets to perform.',
+          tags: 'Photo, Essay, Solo'
+        },
+        {
+          title: '<em>Tiệm</em> Coffee, rebranded',
+          img: 'assets/tiem_coffee.png',
+          year: '2024',
+          desc: 'Full identity system for a third-wave coffee shop in District 3 — logotype, menu, packaging, signage. Pro bono.',
+          tags: 'Brand, Print, Client'
+        },
+        {
+          title: 'Gen Z, <em>louder</em>',
+          img: 'assets/genz_louder.png',
+          year: '2024',
+          desc: 'A school-wide social campaign on youth mental health — three short films, twenty-one posters, one open mic. 2,400 students reached.',
+          tags: 'Campaign, Video, Lead'
+        },
+        {
+          title: '<em>Lặng</em>, an editorial',
+          img: 'assets/lang_editorial.png',
+          year: '2025',
+          desc: 'A self-published zine on silence in Vietnamese culture — 48 pages, riso-printed, sold out in two weeks. Featured in Behance Editorial.',
+          tags: 'Editorial, Print, Self-pub'
+        },
+        {
+          title: 'Short film: <em>Mưa</em>',
+          img: 'assets/rain_film_still.png',
+          year: '2026',
+          desc: 'Seven-minute fiction short on a father and son sharing a rainstorm. Directed, edited, color-graded. Submitted to YxineFF \'26.',
+          tags: 'Film, Direction, Festival'
+        }
+      ]
+    };
+
+    let currentSettings = JSON.parse(JSON.stringify(defaults));
+
+    // Load settings from localStorage if exist
+    function loadSettings() {
+      const stored = localStorage.getItem(SETTINGS_KEY);
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          currentSettings = {
+            colors: {
+              light: { ...defaults.colors.light, ...parsed.colors?.light },
+              dark: { ...defaults.colors.dark, ...parsed.colors?.dark }
+            },
+            slots: { ...defaults.slots, ...parsed.slots },
+            projects: parsed.projects && parsed.projects.length === 5 ? parsed.projects : JSON.parse(JSON.stringify(defaults.projects))
+          };
+        } catch(e) {
+          console.error("Failed to load settings:", e);
+        }
+      }
+      populateInputs();
+      applyStylesToConsole();
+    }
+
+    // Populate inputs from settings
+    function populateInputs() {
+      // Light colors
+      Object.entries(currentSettings.colors.light).forEach(([key, val]) => {
+        const picker = document.getElementById(`light_${key}`);
+        const text = document.getElementById(`light_${key}_text`);
+        if (picker) picker.value = val;
+        if (text) text.value = val;
+      });
+
+      // Dark colors
+      Object.entries(currentSettings.colors.dark).forEach(([key, val]) => {
+        const picker = document.getElementById(`dark_${key}`);
+        const text = document.getElementById(`dark_${key}_text`);
+        if (picker) picker.value = val;
+        if (text) text.value = val;
+      });
+
+      // Slots
+      Object.entries(currentSettings.slots).forEach(([key, val]) => {
+        const input = document.getElementById(`slot_${key}`);
+        if (input) input.value = val;
+      });
+
+      // Projects
+      currentSettings.projects.forEach((proj, idx) => {
+        const titleInput = document.getElementById(`proj_${idx}_title`);
+        const imgInput = document.getElementById(`proj_${idx}_img`);
+        const yearInput = document.getElementById(`proj_${idx}_year`);
+        const descInput = document.getElementById(`proj_${idx}_desc`);
+        const tagsInput = document.getElementById(`proj_${idx}_tags`);
+
+        if (titleInput) titleInput.value = proj.title;
+        if (imgInput) imgInput.value = proj.img;
+        if (yearInput) yearInput.value = proj.year;
+        if (descInput) descInput.value = proj.desc;
+        if (tagsInput) tagsInput.value = proj.tags;
+      });
+    }
+
+    // Read values from inputs and update currentSettings
+    function readInputs() {
+      // Colors Light
+      currentSettings.colors.light.paper = document.getElementById('light_paper_text').value;
+      currentSettings.colors.light.ink = document.getElementById('light_ink_text').value;
+      currentSettings.colors.light.blood = document.getElementById('light_blood_text').value;
+      currentSettings.colors.light.muted = document.getElementById('light_muted_text').value;
+
+      // Colors Dark
+      currentSettings.colors.dark.paper = document.getElementById('dark_paper_text').value;
+      currentSettings.colors.dark.ink = document.getElementById('dark_ink_text').value;
+      currentSettings.colors.dark.blood = document.getElementById('dark_blood_text').value;
+      currentSettings.colors.dark.muted = document.getElementById('dark_muted_text').value;
+
+      // Slots
+      Object.keys(currentSettings.slots).forEach(key => {
+        const input = document.getElementById(`slot_${key}`);
+        if (input) {
+          currentSettings.slots[key] = input.value;
+        }
+      });
+
+      // Projects
+      for (let idx = 0; idx < 5; idx++) {
+        currentSettings.projects[idx] = {
+          title: document.getElementById(`proj_${idx}_title`).value,
+          img: document.getElementById(`proj_${idx}_img`).value,
+          year: document.getElementById(`proj_${idx}_year`).value,
+          desc: document.getElementById(`proj_${idx}_desc`).value,
+          tags: document.getElementById(`proj_${idx}_tags`).value
+        };
+      }
+    }
+
+    // Apply active theme styles to the admin page itself for real-time visual preview
+    function applyStylesToConsole() {
+      const activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const colors = currentSettings.colors[activeTheme];
+
+      document.documentElement.style.setProperty('--paper', colors.paper);
+      document.documentElement.style.setProperty('--ink', colors.ink);
+      document.documentElement.style.setProperty('--blood', colors.blood);
+      document.documentElement.style.setProperty('--muted', colors.muted);
+      
+      // Update warm background contrast adjustments
+      if (activeTheme === 'dark') {
+        document.documentElement.style.setProperty('--paper-warm', '#161412');
+        document.documentElement.style.setProperty('--line', 'rgba(237, 228, 211, 0.15)');
+      } else {
+        document.documentElement.style.setProperty('--paper-warm', '#e8dfcd');
+        document.documentElement.style.setProperty('--line', 'rgba(22, 19, 15, 0.15)');
+      }
+    }
+
+    // Setup color pickers cross-talk
+    document.querySelectorAll('input[type="color"]').forEach(picker => {
+      picker.addEventListener('input', (e) => {
+        const textInput = document.getElementById(`${e.target.id}_text`);
+        if (textInput) textInput.value = e.target.value.toUpperCase();
+        
+        // Update live preview style on edit
+        const theme = e.target.dataset.theme;
+        const variable = e.target.dataset.variable;
+        currentSettings.colors[theme][variable] = e.target.value;
+        applyStylesToConsole();
+      });
+    });
+
+    document.querySelectorAll('input[type="text"]').forEach(textInput => {
+      if (textInput.id.endsWith('_text')) {
+        textInput.addEventListener('input', (e) => {
+          const pickerId = e.target.id.replace('_text', '');
+          const picker = document.getElementById(pickerId);
+          if (picker && e.target.value.match(/^#[0-9A-F]{6}$/i)) {
+            picker.value = e.target.value;
+            const theme = picker.dataset.theme;
+            const variable = picker.dataset.variable;
+            currentSettings.colors[theme][variable] = e.target.value;
+            applyStylesToConsole();
+          }
+        });
+      }
+    });
+
+    // Theme Switch
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      applyStylesToConsole();
+      document.getElementById('themeToggle').textContent = 
+        nextTheme === 'dark' ? 'Switch to Morning Theme' : 'Switch to Night Theme';
+    });
+
+    // Save
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      readInputs();
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(currentSettings));
+      
+      const alertBox = document.getElementById('statusAlert');
+      alertBox.style.display = 'block';
+      alertBox.scrollIntoView({ behavior: 'smooth' });
+      
+      setTimeout(() => {
+        alertBox.style.display = 'none';
+      }, 3000);
+    });
+
+    // Reset
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to restore defaults? All customizations will be reset.')) {
+        localStorage.removeItem(SETTINGS_KEY);
+        currentSettings = JSON.parse(JSON.stringify(defaults));
+        populateInputs();
+        applyStylesToConsole();
+        
+        const alertBox = document.getElementById('statusAlert');
+        alertBox.textContent = 'Settings reset to original defaults!';
+        alertBox.style.display = 'block';
+        setTimeout(() => alertBox.style.display = 'none', 3000);
+      }
+    });
+
+    // View Portfolio
+    document.getElementById('viewBtn').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    // Init
+    window.addEventListener('load', loadSettings);
+  </script>
+</body>
+</html>

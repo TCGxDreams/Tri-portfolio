@@ -22,18 +22,8 @@
     <span class="hint-label">SCROLL</span>
   </div>
 
-  <!-- GENERATIVE BACKGROUND CANVAS -->
-  <canvas id="paperCanvas" class="paper-bg"></canvas>
-
   <!-- LIQUID THEME TRANSITION OVERLAY -->
   <div class="theme-overlay" id="themeOverlay"></div>
-
-  <!-- FLOATING PROJECT PREVIEWS -->
-  <div class="floating-previews-container" id="floatingPreviews">
-    <div class="floating-preview-wrapper" id="previewWrapper">
-      <img class="floating-preview-img" src="" alt="Project Preview" id="previewImg">
-    </div>
-  </div>
 
   <!-- PRELOADER -->
   <div class="preloader" id="preloader">
@@ -50,10 +40,6 @@
     <div class="press-roller" id="pressRoller"></div>
   </div>
 
-  <!-- CURSOR -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-text" id="cursorText">Open</div>
-
   <!-- NAV -->
   <nav>
     <div class="nav-mark">
@@ -62,9 +48,10 @@
     </div>
     <div class="nav-menu">
       <a href="#read"><span class="link-wrap"><span>Read</span><span>Read</span></span></a>
-      <a href="#works"><span class="link-wrap"><span>Works</span><span>Works</span></span></a>
-      <a href="#process"><span class="link-wrap"><span>Process</span><span>Process</span></span></a>
-      <a href="#dossier"><span class="link-wrap"><span>Dossier</span><span>Dossier</span></span></a>
+      <a href="#academic"><span class="link-wrap"><span>Academic</span><span>Academic</span></span></a>
+      <a href="#extracurricular"><span class="link-wrap"><span>Activities</span><span>Activities</span></span></a>
+      <a href="#online"><span class="link-wrap"><span>Online</span><span>Online</span></span></a>
+      <a href="#certificates"><span class="link-wrap"><span>Certificates</span><span>Certificates</span></span></a>
       <a href="#index"><span class="link-wrap"><span>Index</span><span>Index</span></span></a>
     </div>
     <div class="nav-controls">
@@ -128,18 +115,18 @@
   <!-- TICKER -->
   <div class="ticker">
     <div class="ticker-track">
+      <span class="word">Academic record</span><span class="glyph">✦</span>
+      <span class="word italic">extracurricular life</span><span class="glyph">✦</span>
+      <span class="word">Online persona</span><span class="glyph">✦</span>
+      <span class="word italic">certificates</span><span class="glyph">✦</span>
       <span class="word">Storytelling</span><span class="glyph">✦</span>
       <span class="word italic">visual direction</span><span class="glyph">✦</span>
-      <span class="word">Brand strategy</span><span class="glyph">✦</span>
-      <span class="word italic">content systems</span><span class="glyph">✦</span>
-      <span class="word">Editorial design</span><span class="glyph">✦</span>
-      <span class="word italic">campaign craft</span><span class="glyph">✦</span>
+      <span class="word">Academic record</span><span class="glyph">✦</span>
+      <span class="word italic">extracurricular life</span><span class="glyph">✦</span>
+      <span class="word">Online persona</span><span class="glyph">✦</span>
+      <span class="word italic">certificates</span><span class="glyph">✦</span>
       <span class="word">Storytelling</span><span class="glyph">✦</span>
       <span class="word italic">visual direction</span><span class="glyph">✦</span>
-      <span class="word">Brand strategy</span><span class="glyph">✦</span>
-      <span class="word italic">content systems</span><span class="glyph">✦</span>
-      <span class="word">Editorial design</span><span class="glyph">✦</span>
-      <span class="word italic">campaign craft</span><span class="glyph">✦</span>
     </div>
   </div>
 
@@ -169,309 +156,342 @@
     </div>
   </section>
 
-  <!-- WORK / FEATURED PIECES -->
-  <section class="work" id="works">
-    <!-- HEADER: full-width, scrolls in BEFORE the pin -->
-    <header class="work-head">
-      <div class="work-head-meta">
-        <span>Featured pieces</span>
-        <span>pp. 04—09</span>
-        <span>5 selections</span>
+
+  <!-- ============ I. ACADEMIC RESULTS ============ -->
+  <section class="feature academic" id="academic">
+    <header class="sec-head">
+      <div class="sec-head-meta reveal">
+        <span>Section I</span>
+        <span>Academic record</span>
+        <span>pp. 04—05</span>
       </div>
-      <h2 class="work-head-title">
-        The <em>body</em><br>
-        of <span class="ws">work</span>,<br>
-        so <em>far</em>.
+      <h2 class="sec-head-title reveal">
+        Four years,<br>
+        <em>on the</em> record.
       </h2>
+      <p class="sec-lede reveal" data-admin-slot="academic-intro">
+        Bốn năm cấp hai không gói gọn trong một bảng điểm — nhưng bảng điểm là nơi câu chuyện
+        bắt đầu. Đây là những gì tôi đã làm được, từng năm một. <em>Bấm vào từng năm để xem chi tiết.</em>
+      </p>
     </header>
 
-    <!-- STICKY ZONE: pin starts here, two-column layout -->
-    <div class="work-sticky-zone">
-      <div class="work-grid">
-        <!-- LEFT: sticky magazine frame with canvas -->
-        <aside class="work-sticky-frame">
-          <div class="frame-meta">
-            <span>Vol. I / No. 001</span>
-            <span>№ <span class="frame-num">001</span></span>
+    <div class="academic-grid">
+      <button class="flip-card fade-up" type="button" aria-expanded="false">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="flip-grade">Lớp 6</span>
+            <span class="flip-year">2019 — 2020</span>
+            <span class="flip-hint">Bấm để xem ↗</span>
           </div>
-          <div class="frame-canvas-wrap">
-            <canvas id="projectCanvas" class="project-canvas"></canvas>
+          <div class="flip-face flip-back">
+            <h4 data-admin-slot="academic-1-title">Năm đầu, đặt nền</h4>
+            <ul data-admin-slot="academic-1-body">
+              <li>Học sinh Giỏi · GPA 9.2</li>
+              <li>Giải Khuyến khích Toán cấp trường</li>
+              <li>Vào đội tuyển Văn của khối</li>
+            </ul>
           </div>
-          <div class="frame-foot">
-            <span class="frame-title-out">Echoes of Saigon</span>
-            <span class="frame-year-out">2025</span>
-          </div>
-        </aside>
-
-        <!-- RIGHT: scrollable project list -->
-        <div class="project-list">
-          <article class="project active" data-idx="0" data-img="assets/echoes_of_saigon.png" data-title="Echoes of Saigon" data-year="2025">
-            <div class="project-num">№ 001</div>
-            <div class="project-body">
-              <h3 class="project-title"><em>Echoes</em> of Saigon <span class="year">[2025]</span></h3>
-              <p class="project-desc">A photo-essay tracing the city before sunrise — vendors, monks, motorbike repairmen. What Saigon sounds like when it forgets to perform.</p>
-              <div class="project-tags">
-                <span class="tag accent">Photo</span>
-                <span class="tag">Essay</span>
-                <span class="tag">Solo</span>
-              </div>
-            </div>
-            <div class="project-arrow">→</div>
-          </article>
-
-          <article class="project" data-idx="1" data-img="assets/tiem_coffee.png" data-title="Tiệm Coffee, rebranded" data-year="2024">
-            <div class="project-num">№ 002</div>
-            <div class="project-body">
-              <h3 class="project-title"><em>Tiệm</em> Coffee, rebranded <span class="year">[2024]</span></h3>
-              <p class="project-desc">Full identity system for a third-wave coffee shop in District 3 — logotype, menu, packaging, signage. Pro bono.</p>
-              <div class="project-tags">
-                <span class="tag accent">Brand</span>
-                <span class="tag">Print</span>
-                <span class="tag">Client</span>
-              </div>
-            </div>
-            <div class="project-arrow">→</div>
-          </article>
-
-          <article class="project" data-idx="2" data-img="assets/genz_louder.png" data-title="Gen Z, louder" data-year="2024">
-            <div class="project-num">№ 003</div>
-            <div class="project-body">
-              <h3 class="project-title">Gen Z, <em>louder</em> <span class="year">[2024]</span></h3>
-              <p class="project-desc">A school-wide social campaign on youth mental health — three short films, twenty-one posters, one open mic. 2,400 students reached.</p>
-              <div class="project-tags">
-                <span class="tag accent">Campaign</span>
-                <span class="tag">Video</span>
-                <span class="tag">Lead</span>
-              </div>
-            </div>
-            <div class="project-arrow">→</div>
-          </article>
-
-          <article class="project" data-idx="3" data-img="assets/lang_editorial.png" data-title="Lặng, an editorial" data-year="2025">
-            <div class="project-num">№ 004</div>
-            <div class="project-body">
-              <h3 class="project-title"><em>Lặng</em>, an editorial <span class="year">[2025]</span></h3>
-              <p class="project-desc">A self-published zine on silence in Vietnamese culture — 48 pages, riso-printed, sold out in two weeks. Featured in Behance Editorial.</p>
-              <div class="project-tags">
-                <span class="tag accent">Editorial</span>
-                <span class="tag">Print</span>
-                <span class="tag">Self-pub</span>
-              </div>
-            </div>
-            <div class="project-arrow">→</div>
-          </article>
-
-          <article class="project" data-idx="4" data-img="assets/rain_film_still.png" data-title="Short film: Mưa" data-year="2026">
-            <div class="project-num">№ 005</div>
-            <div class="project-body">
-              <h3 class="project-title">Short film: <em>Mưa</em> <span class="year">[2026]</span></h3>
-              <p class="project-desc">Seven-minute fiction short on a father and son sharing a rainstorm. Directed, edited, color-graded. Submitted to YxineFF '26.</p>
-              <div class="project-tags">
-                <span class="tag accent">Film</span>
-                <span class="tag">Direction</span>
-                <span class="tag">Festival</span>
-              </div>
-            </div>
-            <div class="project-arrow">→</div>
-          </article>
         </div>
-      </div>
+      </button>
+
+      <button class="flip-card fade-up" type="button" aria-expanded="false">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="flip-grade">Lớp 7</span>
+            <span class="flip-year">2020 — 2021</span>
+            <span class="flip-hint">Bấm để xem ↗</span>
+          </div>
+          <div class="flip-face flip-back">
+            <h4 data-admin-slot="academic-2-title">Tìm được nhịp</h4>
+            <ul data-admin-slot="academic-2-body">
+              <li>Học sinh Giỏi · GPA 9.4</li>
+              <li>Giải Nhì Tiếng Anh cấp Quận</li>
+              <li>Top 5 cuộc thi viết của trường</li>
+            </ul>
+          </div>
+        </div>
+      </button>
+
+      <button class="flip-card fade-up" type="button" aria-expanded="false">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="flip-grade">Lớp 8</span>
+            <span class="flip-year">2021 — 2022</span>
+            <span class="flip-hint">Bấm để xem ↗</span>
+          </div>
+          <div class="flip-face flip-back">
+            <h4 data-admin-slot="academic-3-title">Bước vào guồng</h4>
+            <ul data-admin-slot="academic-3-body">
+              <li>Học sinh Giỏi · GPA 9.5</li>
+              <li>Giải Nhất Văn cấp Quận</li>
+              <li>Học bổng học sinh tiêu biểu</li>
+            </ul>
+          </div>
+        </div>
+      </button>
+
+      <button class="flip-card fade-up" type="button" aria-expanded="false">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="flip-grade">Lớp 9</span>
+            <span class="flip-year">2022 — 2023</span>
+            <span class="flip-hint">Bấm để xem ↗</span>
+          </div>
+          <div class="flip-face flip-back">
+            <h4 data-admin-slot="academic-4-title">Về đích, mở cửa</h4>
+            <ul data-admin-slot="academic-4-body">
+              <li>Học sinh Giỏi · GPA 9.6</li>
+              <li>Đậu vào trường Phổ thông Năng khiếu</li>
+              <li>Giải Ba HSG Văn cấp Thành phố</li>
+            </ul>
+          </div>
+        </div>
+      </button>
     </div>
   </section>
 
-  <!-- PROCESS -->
-  <section class="process" id="process">
-    <div class="steps-stage">
-      <div class="process-head">
-        <h2 class="process-head-l">
-          How <em>he</em>
-          <span class="ws">works.</span>
-        </h2>
-        <p class="process-head-r">
-          Four steps. No shortcuts. The method behind the pages.
+  <!-- ============ II. EXTRACURRICULAR ============ -->
+  <section class="feature extra" id="extracurricular">
+    <header class="sec-head">
+      <div class="sec-head-meta reveal">
+        <span>Section II</span>
+        <span>Extracurricular life</span>
+        <span>pp. 06—07</span>
+      </div>
+      <h2 class="sec-head-title reveal">
+        Outside <em>the</em><br>
+        classroom.
+      </h2>
+      <p class="sec-lede reveal" data-admin-slot="extra-intro">
+        Điểm số kể một nửa câu chuyện. Nửa còn lại nằm ở những căn phòng họp câu lạc bộ, những đêm
+        dựng sự kiện, và những lần đứng trước đám đông. Tám hoạt động đã định hình tôi.
+      </p>
+    </header>
+
+    <div class="extra-grid">
+      <article class="extra-card fade-up">
+        <span class="extra-num">01</span>
+        <h3 class="extra-title" data-admin-slot="extra-1-title">Câu lạc bộ Truyền thông</h3>
+        <p class="extra-desc" data-admin-slot="extra-1-desc">Trưởng ban nội dung — lên kế hoạch và viết bài cho fanpage trường, 12k lượt theo dõi.</p>
+        <span class="extra-tag">Lead · 2 năm</span>
+      </article>
+
+      <article class="extra-card fade-up">
+        <span class="extra-num">02</span>
+        <h3 class="extra-title" data-admin-slot="extra-2-title">Báo tường &amp; Kỷ yếu</h3>
+        <p class="extra-desc" data-admin-slot="extra-2-desc">Thiết kế và biên tập kỷ yếu khối 9 — 80 trang, in 300 bản.</p>
+        <span class="extra-tag">Design · Editor</span>
+      </article>
+
+      <article class="extra-card fade-up">
+        <span class="extra-num">03</span>
+        <h3 class="extra-title" data-admin-slot="extra-3-title">Đội văn nghệ</h3>
+        <p class="extra-desc" data-admin-slot="extra-3-desc">MC và đạo diễn sân khấu cho hội diễn văn nghệ chào năm học.</p>
+        <span class="extra-tag">MC · Stage</span>
+      </article>
+
+      <article class="extra-card fade-up">
+        <span class="extra-num">04</span>
+        <h3 class="extra-title" data-admin-slot="extra-4-title">Dự án thiện nguyện</h3>
+        <p class="extra-desc" data-admin-slot="extra-4-desc">Tổ chức gây quỹ sách cho trẻ em vùng cao — quyên góp 1,200 đầu sách.</p>
+        <span class="extra-tag">Volunteer</span>
+      </article>
+
+      <article class="extra-card fade-up">
+        <span class="extra-num">05</span>
+        <h3 class="extra-title" data-admin-slot="extra-5-title">CLB Tranh biện</h3>
+        <p class="extra-desc" data-admin-slot="extra-5-desc">Thành viên tích cực — vào bán kết giải tranh biện liên trường.</p>
+        <span class="extra-tag">Debate</span>
+      </article>
+
+      <article class="extra-card fade-up">
+        <span class="extra-num">06</span>
+        <h3 class="extra-title" data-admin-slot="extra-6-title">Nhiếp ảnh sự kiện</h3>
+        <p class="extra-desc" data-admin-slot="extra-6-desc">Chụp và xử lý hình cho các sự kiện lớn của trường suốt 2 năm.</p>
+        <span class="extra-tag">Photo</span>
+      </article>
+
+      <article class="extra-card fade-up">
+        <span class="extra-num">07</span>
+        <h3 class="extra-title" data-admin-slot="extra-7-title">Lớp học code</h3>
+        <p class="extra-desc" data-admin-slot="extra-7-desc">Tự học HTML/CSS và làm trang web đầu tiên cho CLB.</p>
+        <span class="extra-tag">Self-taught</span>
+      </article>
+
+      <article class="extra-card fade-up">
+        <span class="extra-num">08</span>
+        <h3 class="extra-title" data-admin-slot="extra-8-title">Thể thao — Bóng rổ</h3>
+        <p class="extra-desc" data-admin-slot="extra-8-desc">Thành viên đội tuyển khối, vào chung kết giải bóng rổ học sinh.</p>
+        <span class="extra-tag">Team</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ III. ONLINE PERSONA ============ -->
+  <section class="feature online" id="online">
+    <header class="sec-head">
+      <div class="sec-head-meta reveal">
+        <span>Section III</span>
+        <span>Online persona</span>
+        <span>pp. 08—09</span>
+      </div>
+      <h2 class="sec-head-title reveal">
+        A voice <em>that</em><br>
+        travels.
+      </h2>
+      <p class="sec-lede reveal" data-admin-slot="online-intro">
+        Truyền thông không còn dừng ở trang giấy. Tôi tập kể chuyện trên nền tảng số — học cách
+        một ý tưởng tốt lan đi, và cách khán giả phản hồi theo thời gian thực.
+      </p>
+    </header>
+
+    <div class="online-split">
+      <!-- LEFT: 4 stats -->
+      <div class="online-stats">
+        <div class="stat-cell fade-up">
+          <span class="stat-num" data-count="48200" data-admin-slot="online-stat-1-num">48,200</span>
+          <span class="stat-lbl" data-admin-slot="online-stat-1-lbl">Followers</span>
+        </div>
+        <div class="stat-cell fade-up">
+          <span class="stat-num" data-count="1300000" data-suffix="" data-admin-slot="online-stat-2-num">1.3M</span>
+          <span class="stat-lbl" data-admin-slot="online-stat-2-lbl">Total likes</span>
+        </div>
+        <div class="stat-cell fade-up">
+          <span class="stat-num" data-count="5800000" data-admin-slot="online-stat-3-num">5.8M</span>
+          <span class="stat-lbl" data-admin-slot="online-stat-3-lbl">Total views</span>
+        </div>
+        <div class="stat-cell fade-up">
+          <span class="stat-num" data-count="124" data-admin-slot="online-stat-4-num">124</span>
+          <span class="stat-lbl" data-admin-slot="online-stat-4-lbl">Videos posted</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: tiktok account card -->
+      <div class="online-account fade-up">
+        <div class="acct-platform">
+          <span class="acct-logo">♪</span>
+          <span>TikTok</span>
+        </div>
+        <div class="acct-avatar" aria-hidden="true">T</div>
+        <div class="acct-handle" data-admin-slot="online-handle">@tri.creates</div>
+        <p class="acct-bio" data-admin-slot="online-bio">
+          Communication student · Saigon. Kể chuyện bằng hình &amp; chữ. ✦
         </p>
-      </div>
-      <div class="step-counter" id="stepCounter">
-        <span class="sc-current">01</span><span class="sc-sep">/</span><span class="sc-total">04</span>
-      </div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">Step 01 / Listen</div>
-          <div class="step-glyph">i.</div>
-          <h3 class="step-title">Read the <em>room</em>.</h3>
-          <p class="step-body">Before any concept — interviews, observation, audience research. The story already
-            exists;
-            the job is to find it.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">Step 02 / Frame</div>
-          <div class="step-glyph">ii.</div>
-          <h3 class="step-title">Find the <em>angle</em>.</h3>
-          <p class="step-body">One sentence. One concept. If the brief can't fit on a postcard, it isn't ready yet.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">Step 03 / Make</div>
-          <div class="step-glyph">iii.</div>
-          <h3 class="step-title">Build the <em>thing</em>.</h3>
-          <p class="step-body">Photography, layout, copy, edit. Two rounds of critique with mentors. Sleep on it. Cut
-            what
-            doesn't earn its place.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">Step 04 / Ship</div>
-          <div class="step-glyph">iv.</div>
-          <h3 class="step-title">Send it <em>out</em>.</h3>
-          <p class="step-body">A piece left on a desktop is a piece that never existed. Publish, present, defend, learn,
-            repeat.</p>
-        </div>
-      </div>
-      <div class="step-progress">
-        <div class="step-progress-bar" id="stepProgressBar"></div>
+        <a class="acct-follow" href="https://www.tiktok.com/@tri.creates" target="_blank" rel="noopener" data-admin-slot="online-link">
+          Follow on TikTok ↗
+        </a>
       </div>
     </div>
-  </section>
-  <section class="philosophy">
-    <canvas id="philosophyWebGL" class="philosophy-webgl"></canvas>
-    <div class="philosophy-quote-mark">"</div>
-    <p class="philosophy-text reveal">
-      <span class="clause" data-admin-slot="philosophy-row-1">Communication is not the art of being <em>loud</em>—</span><br>
-      <span class="clause" data-admin-slot="philosophy-row-2">it is the art of making someone <span class="ws">listen</span></span><br>
-      <span class="clause" data-admin-slot="philosophy-row-3">when they had every reason <em>not to</em>.</span>
+
+    <p class="sec-lede online-yap4 reveal" data-admin-slot="online-yap4">
+      Nhưng con số chỉ là vỏ. Điều khiến tôi tiếp tục là những gì người xem để lại — đây là một
+      vài lời, lấy ngẫu nhiên từ phần bình luận.
     </p>
-    <div class="philosophy-attr reveal">Working principle · Tri · 2026</div>
-  </section>
 
-  <!-- CV / DOSSIER -->
-  <section class="cv" id="dossier">
-    <aside class="cv-sidebar">
-      <div class="label reveal">The Dossier</div>
-      <h2 class="reveal">What <em>he</em> brings to the desk.</h2>
-      <p class="reveal" style="margin-bottom: 32px;">A compact inventory of tools, fluencies, and disciplines —
-        practiced, polished, and ready to be
-        tested at university level.</p>
-
-      <!-- INTERACTIVE WIDGETS -->
-      <div class="sidebar-widgets reveal">
-        <!-- Widget 1: Availability Status -->
-        <div class="widget-card" id="widgetStatus">
-          <div class="widget-badge">
-            <span class="status-pulse"></span>
-            <span class="status-label">Active / Saigon</span>
-          </div>
-          <div class="widget-desc">Available for Autumn 2026 cohort commissions.</div>
-        </div>
-
-        <!-- Widget 2: Timezone Difference -->
-        <div class="widget-card" id="widgetTimezone">
-          <div class="widget-title">Time Sync</div>
-          <div class="tz-grid">
-            <div class="tz-col">
-              <div class="tz-lbl">Saigon (ICT)</div>
-              <div class="tz-val" id="tzHCMC">00:00</div>
-            </div>
-            <div class="tz-col">
-              <div class="tz-lbl">You</div>
-              <div class="tz-val" id="tzUser">00:00</div>
-            </div>
-          </div>
-          <div class="tz-diff" id="tzDiff">Calculating offset...</div>
-        </div>
-
-        <!-- Widget 3: Random Thought / Quote -->
-        <div class="widget-card" id="widgetThought">
-          <div class="widget-title">Field Notes</div>
-          <blockquote id="thoughtBox">"A clean layout is a clean mind."</blockquote>
-          <button id="thoughtBtn" class="thought-btn">✦ Draw Note</button>
-        </div>
+    <div class="comments">
+      <div class="comments-head">
+        <span class="comments-label">Từ phần bình luận — 6 lấy ngẫu nhiên</span>
+        <button id="commentsShuffle" class="comments-shuffle" type="button">↻ Lấy 6 cái khác</button>
       </div>
-    </aside>
-
-    <div class="cv-main">
-      <div class="cv-cell">
-        <div class="cv-cell-head">
-          <span class="cv-cat">Craft / 01</span>
-          <span>Since '23</span>
-        </div>
-        <h3 class="cv-cell-title">Visual <em>Storytelling</em></h3>
-        <p class="cv-cell-body">Concept boards, photo direction, sequencing. Knowing not only what to show, but what to
-          leave outside the frame.</p>
-        <div class="cv-cell-foot">
-          <span>Primary</span>
-          <span class="level">Lead level</span>
-        </div>
-      </div>
-
-      <div class="cv-cell">
-        <div class="cv-cell-head">
-          <span class="cv-cat">Craft / 02</span>
-          <span>Since '22</span>
-        </div>
-        <h3 class="cv-cell-title">Copy & <em>Editorial</em></h3>
-        <p class="cv-cell-body">Long-form features, headlines, social copy. Fluent across Vietnamese and English;
-          comfortable switching registers mid-sentence.</p>
-        <div class="cv-cell-foot">
-          <span>Daily practice</span>
-          <span class="level">Strong</span>
-        </div>
-      </div>
-
-      <div class="cv-cell">
-        <div class="cv-cell-head">
-          <span class="cv-cat">Craft / 03</span>
-          <span>Since '24</span>
-        </div>
-        <h3 class="cv-cell-title">Brand <em>Identity</em></h3>
-        <p class="cv-cell-body">Logo systems, type pairing, color logic, brand guidelines. Two paid clients, both local
-          F&B brands in HCMC.</p>
-        <div class="cv-cell-foot">
-          <span>Project-based</span>
-          <span class="level">Practiced</span>
-        </div>
-      </div>
-
-      <div class="cv-cell">
-        <div class="cv-cell-head">
-          <span class="cv-cat">Craft / 04</span>
-          <span>Daily</span>
-        </div>
-        <h3 class="cv-cell-title">Digital <em>Toolkit</em></h3>
-        <p class="cv-cell-body">Adobe Photoshop, Illustrator, InDesign, Premiere, Lightroom. Figma, CapCut, DaVinci
-          Resolve. Always learning the next one.</p>
-        <div class="cv-cell-foot">
-          <span>Self-taught</span>
-          <span class="level">Fluent</span>
-        </div>
-      </div>
-
-      <div class="cv-cell">
-        <div class="cv-cell-head">
-          <span class="cv-cat">Craft / 05</span>
-          <span>Since '25</span>
-        </div>
-        <h3 class="cv-cell-title">Strategy & <em>Research</em></h3>
-        <p class="cv-cell-body">Audience insight, competitive scans, content frameworks. Learning to ask the right "why"
-          before reaching for the "how".</p>
-        <div class="cv-cell-foot">
-          <span>In development</span>
-          <span class="level">Growing</span>
-        </div>
-      </div>
-
-      <div class="cv-cell">
-        <div class="cv-cell-head">
-          <span class="cv-cat">Beyond</span>
-          <span>Lifelong</span>
-        </div>
-        <h3 class="cv-cell-title">Reading, <em>seriously</em></h3>
-        <p class="cv-cell-body">Joan Didion, Nguyễn Ngọc Tư, John Berger, David Ogilvy. Plus the back issues of Kinfolk,
-          Wired, and Đẹp Magazine.</p>
-        <div class="cv-cell-foot">
-          <span>Diet</span>
-          <span class="level">Consistent</span>
-        </div>
-      </div>
+      <div class="comments-grid" id="commentsGrid"></div>
     </div>
   </section>
+
+  <!-- ============ IV. CERTIFICATE ============ -->
+  <section class="feature certs" id="certificates">
+    <header class="sec-head">
+      <div class="sec-head-meta reveal">
+        <span>Section IV</span>
+        <span>The certificates</span>
+        <span>pp. 10</span>
+      </div>
+      <h2 class="sec-head-title reveal">
+        Filed <em>&amp;</em><br>
+        verified.
+      </h2>
+      <p class="sec-lede reveal" data-admin-slot="certs-intro">
+        Mọi thứ kể trên đều có giấy tờ. Bấm vào thư mục để mở kho lưu trữ — hover hoặc bấm từng
+        tấm để xem.
+      </p>
+    </header>
+
+    <!-- COVER BOX -->
+    <div class="cert-cover" id="certCover">
+      <button class="cert-folder" id="certFolderBtn" type="button" aria-expanded="false" aria-controls="certDrive">
+        <span class="cert-folder-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 52" width="72" height="58">
+            <path d="M3 8 a5 5 0 0 1 5-5 h16 l6 7 h26 a5 5 0 0 1 5 5 v29 a5 5 0 0 1-5 5 H8 a5 5 0 0 1-5-5 Z"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="cert-folder-name">Certificates</span>
+        <span class="cert-folder-meta"><span id="certCount">8</span> items · Drive</span>
+        <span class="cert-folder-hint">Open folder ↗</span>
+      </button>
+    </div>
+
+    <!-- DRIVE INTERFACE -->
+    <div class="cert-drive" id="certDrive" hidden>
+      <div class="drive-bar">
+        <div class="drive-crumbs">
+          <button class="drive-back" id="driveBack" type="button">‹ Back</button>
+          <span class="crumb-sep">·</span>
+          <span class="crumb">My Drive</span>
+          <span class="crumb-sep">›</span>
+          <span class="crumb crumb-active">Certificates</span>
+        </div>
+        <div class="drive-view-toggle" aria-hidden="true">
+          <span class="dv dv-active">▦</span><span class="dv">≣</span>
+        </div>
+      </div>
+
+      <div class="drive-grid" id="driveGrid">
+        <!-- file cards injected/enhanced; static fallback below -->
+        <article class="drive-file" tabindex="0" data-title="HSG Văn cấp Thành phố" data-meta="2023 · PDF" data-img="assets/lang_editorial.png">
+          <div class="file-thumb"><img src="assets/lang_editorial.png" alt="" loading="lazy"></div>
+          <div class="file-info"><span class="file-name">HSG Văn — Thành phố</span><span class="file-meta">2023 · PDF</span></div>
+        </article>
+        <article class="drive-file" tabindex="0" data-title="Học bổng học sinh tiêu biểu" data-meta="2022 · PDF" data-img="assets/echoes_of_saigon.png">
+          <div class="file-thumb"><img src="assets/echoes_of_saigon.png" alt="" loading="lazy"></div>
+          <div class="file-info"><span class="file-name">Học bổng tiêu biểu</span><span class="file-meta">2022 · PDF</span></div>
+        </article>
+        <article class="drive-file" tabindex="0" data-title="Giải Nhất Văn cấp Quận" data-meta="2022 · JPG" data-img="assets/genz_louder.png">
+          <div class="file-thumb"><img src="assets/genz_louder.png" alt="" loading="lazy"></div>
+          <div class="file-info"><span class="file-name">Giải Nhất Văn — Quận</span><span class="file-meta">2022 · JPG</span></div>
+        </article>
+        <article class="drive-file" tabindex="0" data-title="Giải Nhì Tiếng Anh cấp Quận" data-meta="2021 · JPG" data-img="assets/tiem_coffee.png">
+          <div class="file-thumb"><img src="assets/tiem_coffee.png" alt="" loading="lazy"></div>
+          <div class="file-info"><span class="file-name">Giải Nhì Tiếng Anh</span><span class="file-meta">2021 · JPG</span></div>
+        </article>
+        <article class="drive-file" tabindex="0" data-title="Chứng nhận CLB Truyền thông" data-meta="2023 · PDF" data-img="assets/rain_film_still.png">
+          <div class="file-thumb"><img src="assets/rain_film_still.png" alt="" loading="lazy"></div>
+          <div class="file-info"><span class="file-name">CLB Truyền thông</span><span class="file-meta">2023 · PDF</span></div>
+        </article>
+        <article class="drive-file" tabindex="0" data-title="IELTS 7.5" data-meta="2023 · PDF" data-img="assets/lang_editorial.png">
+          <div class="file-thumb"><img src="assets/lang_editorial.png" alt="" loading="lazy"></div>
+          <div class="file-info"><span class="file-name">IELTS 7.5</span><span class="file-meta">2023 · PDF</span></div>
+        </article>
+        <article class="drive-file" tabindex="0" data-title="Chứng nhận thiện nguyện" data-meta="2022 · PDF" data-img="assets/echoes_of_saigon.png">
+          <div class="file-thumb"><img src="assets/echoes_of_saigon.png" alt="" loading="lazy"></div>
+          <div class="file-info"><span class="file-name">Thiện nguyện 2022</span><span class="file-meta">2022 · PDF</span></div>
+        </article>
+        <article class="drive-file" tabindex="0" data-title="Giải bóng rổ học sinh" data-meta="2022 · JPG" data-img="assets/genz_louder.png">
+          <div class="file-thumb"><img src="assets/genz_louder.png" alt="" loading="lazy"></div>
+          <div class="file-info"><span class="file-name">Bóng rổ — Chung kết</span><span class="file-meta">2022 · JPG</span></div>
+        </article>
+      </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="cert-lightbox" id="certLightbox" hidden>
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close">✕</button>
+      <figure class="lightbox-figure">
+        <img id="lightboxImg" src="" alt="">
+        <figcaption><span id="lightboxTitle"></span><span id="lightboxMeta"></span></figcaption>
+      </figure>
+    </div>
+  </section>
+
 
   <!-- CONTACT / BACK PAGE -->
   <section class="contact" id="index">
@@ -511,7 +531,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="app.js"></script>
 </body>
 

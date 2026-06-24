@@ -199,200 +199,6 @@
     setInterval(update, 1000);
 })();
 
-
-// GENERATIVE PAPER BACKGROUND CANVAS
-(function () {
-    const canvas = document.getElementById('paperCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    });
-
-    const fibers = [];
-    const fiberCount = 45;
-
-    for (let i = 0; i < fiberCount; i++) {
-        fibers.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            length: 80 + Math.random() * 140,
-            angle: Math.random() * Math.PI * 2,
-            speed: 0.15 + Math.random() * 0.35,
-            amplitude: 12 + Math.random() * 24,
-            offset: Math.random() * 100,
-            width: 0.25 + Math.random() * 0.75
-        });
-    }
-
-    let mouse = { x: -1000, y: -1000 };
-    document.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-    });
-
-    let lastScrollY = window.scrollY;
-
-    function draw() {
-        ctx.clearRect(0, 0, width, height);
-
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        ctx.strokeStyle = isDark ? 'rgba(237, 228, 211, 0.055)' : 'rgba(22, 19, 15, 0.055)';
-
-        const currentScrollY = window.scrollY;
-        const scrollDiff = (currentScrollY - lastScrollY);
-        lastScrollY += (currentScrollY - lastScrollY) * 0.08;
-
-        fibers.forEach(f => {
-            f.offset += 0.003 * f.speed;
-            f.y -= 0.08 * f.speed + scrollDiff * 0.03 * f.speed;
-
-            if (f.y < -f.length) {
-                f.y = height + f.length;
-                f.x = Math.random() * width;
-            } else if (f.y > height + f.length) {
-                f.y = -f.length;
-                f.x = Math.random() * width;
-            }
-
-            let dx = mouse.x - f.x;
-            let dy = mouse.y - f.y;
-            let dist = Math.sqrt(dx * dx + dy * dy);
-            let warpX = 0;
-            let warpY = 0;
-
-            if (dist < 180) {
-                const force = (180 - dist) / 180;
-                warpX = -dx * force * 0.35;
-                warpY = -dy * force * 0.35;
-            }
-
-            ctx.lineWidth = f.width;
-            ctx.beginPath();
-
-            const points = [];
-            const segments = 6;
-            for (let j = 0; j <= segments; j++) {
-                const t = j / segments;
-                const segY = f.y + (t - 0.5) * f.length + warpY;
-                const wave = Math.sin(t * Math.PI + f.offset * 8) * f.amplitude;
-                const segX = f.x + Math.cos(f.angle) * (t - 0.5) * f.length + wave + warpX;
-
-                if (j === 0) {
-                    ctx.moveTo(segX, segY);
-                } else {
-                    points.push({ x: segX, y: segY });
-                }
-            }
-
-            for (let j = 0; j < points.length - 1; j++) {
-                const xc = (points[j].x + points[j + 1].x) / 2;
-                const yc = (points[j].y + points[j + 1].y) / 2;
-                ctx.quadraticCurveTo(points[j].x, points[j].y, xc, yc);
-            }
-            ctx.stroke();
-        });
-
-        requestAnimationFrame(draw);
-    }
-    draw();
-})();
-
-// CLICK-TO-STAMP EDITORIAL SEALS
-(function () {
-    const STAMP_SVGS = [
-        // Seal 0: Circle APPROVED
-        `<svg viewBox="0 0 100 100" class="stamp-svg">
-            <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="2 1 3 1"/>
-            <circle cx="50" cy="50" r="37" fill="none" stroke="currentColor" stroke-width="1.2"/>
-            <text x="50" y="32" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle" font-weight="bold">SAIGON VOL. I</text>
-            <text x="50" y="55" font-family="'Fraunces', serif" font-size="14" font-weight="900" font-style="italic" text-anchor="middle">PASSED</text>
-            <text x="50" y="72" font-family="'JetBrains Mono', monospace" font-size="6" text-anchor="middle">EST. MMXXIII</text>
-         </svg>`,
-        // Seal 1: Rectangle COPY EDIT
-        `<svg viewBox="0 0 120 70" class="stamp-svg">
-            <rect x="5" y="5" width="110" height="60" fill="none" stroke="currentColor" stroke-width="2" rx="2"/>
-            <line x1="5" y1="23" x2="115" y2="23" stroke="currentColor" stroke-width="1"/>
-            <line x1="5" y1="46" x2="115" y2="46" stroke="currentColor" stroke-width="1"/>
-            <text x="60" y="17" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle" font-weight="bold">THE TRI GAZETTE</text>
-            <text x="60" y="38" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle" font-weight="bold">COPY EDIT</text>
-            <text x="60" y="58" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">27 MAY 2026</text>
-         </svg>`,
-        // Seal 2: RMIT Shield
-        `<svg viewBox="0 0 100 100" class="stamp-svg">
-            <polygon points="50,5 92,28 92,78 50,95 8,78 8,28" fill="none" stroke="currentColor" stroke-width="2"/>
-            <polygon points="50,11 86,31 86,75 50,89 14,75 14,31" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3"/>
-            <text x="50" y="38" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">RMIT COHORT</text>
-            <text x="50" y="56" font-family="'Fraunces', serif" font-size="14" font-weight="bold" text-anchor="middle">COMM</text>
-            <text x="50" y="74" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">CLASS OF '30</text>
-         </svg>`,
-        // Seal 3: rectangular banner DRAFT
-        `<svg viewBox="0 0 130 50" class="stamp-svg">
-            <rect x="4" y="4" width="122" height="42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="10 2 2 2"/>
-            <text x="65" y="34" font-family="'Fraunces', serif" font-weight="900" font-size="24" font-style="italic" text-anchor="middle" letter-spacing="2">DRAFT</text>
-         </svg>`,
-        // Seal 4: Star insignia
-        `<svg viewBox="0 0 100 100" class="stamp-svg">
-            <path d="M50,4 L65,33 L97,38 L73,61 L79,93 L50,78 L21,93 L27,61 L3,38 L35,33 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="50" cy="50" r="11" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2"/>
-            <text x="50" y="53" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" text-anchor="middle">✦</text>
-         </svg>`
-    ];
-
-    const maxStamps = 4;
-    const activeStamps = [];
-
-    document.addEventListener('click', (e) => {
-        if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.project') || e.target.closest('.thought-btn')) return;
-
-        const scrollY = window.pageYOffset;
-        const x = e.pageX;
-        const y = e.pageY;
-
-        const stamp = document.createElement('div');
-        stamp.className = 'editorial-stamp';
-        stamp.style.left = `${x}px`;
-        stamp.style.top = `${y}px`;
-
-        const stampIndex = Math.floor(Math.random() * STAMP_SVGS.length);
-        const rotation = (Math.random() * 40) - 20;
-        stamp.style.setProperty('--stamp-rot', `${rotation}deg`);
-
-        stamp.innerHTML = STAMP_SVGS[stampIndex];
-        document.body.appendChild(stamp);
-
-        void stamp.offsetWidth;
-
-        stamp.classList.add('active');
-
-        activeStamps.push(stamp);
-
-        // Auto-clear stamp after 6 seconds
-        setTimeout(() => {
-            stamp.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            stamp.style.opacity = '0';
-            stamp.style.transform = `translate(-50%, -50%) scale(0.7) rotate(${rotation}deg)`;
-            setTimeout(() => {
-                stamp.remove();
-                const idx = activeStamps.indexOf(stamp);
-                if (idx > -1) activeStamps.splice(idx, 1);
-            }, 600);
-        }, 6000);
-
-        if (activeStamps.length > maxStamps) {
-            const old = activeStamps.shift();
-            old.style.opacity = 0;
-            old.style.transform = `translate(-50%, -50%) scale(0.8) rotate(${rotation}deg)`;
-            setTimeout(() => old.remove(), 300);
-        }
-    });
-})();
-
 // STICKY MAGAZINE IMAGE CANVAS DISTORTION ENGINE (WORKS)
 let activeImg = null;
 let nextImg = null;
@@ -602,81 +408,6 @@ function animateCanvas() {
 
     projects.forEach(p => {
         projectObserver.observe(p);
-    });
-})();
-
-// GENERAL CURSOR & GENERAL LINK HOVER PREVIEW
-(function () {
-    const cur = document.getElementById('cursor');
-    const txt = document.getElementById('cursorText');
-    const previewContainer = document.getElementById('floatingPreviews');
-    const previewImg = document.getElementById('previewImg');
-    const isMobile = window.innerWidth <= 900;
-
-    let mx = 0, my = 0, cx = 0, cy = 0;
-    let targetX = 0, targetY = 0;
-    let velocityX = 0, velocityY = 0;
-    let prevMouseX = 0, prevMouseY = 0;
-    let skew = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        mx = e.clientX;
-        my = e.clientY;
-        if (!isMobile && txt) {
-            txt.style.left = mx + 'px';
-            txt.style.top = (my + 40) + 'px';
-        }
-    });
-
-    function animate() {
-        if (!isMobile && cur) {
-            cx += (mx - cx) * 0.18;
-            cy += (my - cy) * 0.18;
-            cur.style.left = cx + 'px';
-            cur.style.top = cy + 'px';
-        }
-
-        if (!isMobile && previewContainer && previewContainer.classList.contains('show')) {
-            velocityX = mx - prevMouseX;
-            velocityY = my - prevMouseY;
-
-            prevMouseX = mx;
-            prevMouseY = my;
-
-            targetX += (mx - targetX) * 0.12;
-            targetY += (my - targetY) * 0.12;
-
-            previewContainer.style.left = `${targetX}px`;
-            previewContainer.style.top = `${targetY}px`;
-
-            const speed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-            const skewAngle = Math.min(speed / 80, 1) * 10;
-            const direction = velocityX > 0 ? 1 : -1;
-
-            skew += (skewAngle * direction - skew) * 0.15;
-
-            const imgWrapper = previewContainer.querySelector('.floating-preview-wrapper');
-            if (imgWrapper) {
-                imgWrapper.style.transform = `rotate(${skew}deg) skewX(${skew * 0.6}deg)`;
-            }
-        } else {
-            prevMouseX = mx;
-            prevMouseY = my;
-        }
-
-        requestAnimationFrame(animate);
-    }
-    animate();
-
-    document.querySelectorAll('a, button, .nav-menu a, .nav-btn, .thought-btn').forEach(el => {
-        if (el.closest('.project')) return;
-
-        el.addEventListener('mouseenter', () => {
-            if (!isMobile && cur) cur.classList.add('lg');
-        });
-        el.addEventListener('mouseleave', () => {
-            if (!isMobile && cur) cur.classList.remove('lg');
-        });
     });
 })();
 
@@ -1630,4 +1361,303 @@ window.addEventListener('load', () => {
             }
         });
     });
+})();
+// ===================================================================
+// NEW SECTIONS (I–IV) — interactions
+// ===================================================================
+
+// FADE-UP SCROLL REVEAL (cards)
+(function () {
+    const els = document.querySelectorAll('.fade-up');
+    if (!els.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(el => el.classList.add('is-visible'));
+        return;
+    }
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                const delay = (e.target.dataset.fadeDelay || (i % 4) * 70);
+                setTimeout(() => e.target.classList.add('is-visible'), delay);
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => obs.observe(el));
+})();
+
+// I. ACADEMIC — click-to-reveal flip cards
+(function () {
+    const cards = document.querySelectorAll('.flip-card');
+    if (!cards.length) return;
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const open = card.classList.toggle('is-open');
+            card.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+    });
+})();
+
+// III. ONLINE — stat count-up
+(function () {
+    const stats = document.querySelectorAll('.stat-num[data-count]');
+    if (!stats.length) return;
+
+    function fmt(v) {
+        if (v >= 1e6) return (v / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+        if (v >= 1e3) return Math.round(v).toLocaleString('en-US');
+        return String(Math.round(v));
+    }
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function run(el) {
+        const target = parseFloat(el.dataset.count) || 0;
+        if (reduced) { el.textContent = fmt(target); return; }
+        const dur = 1600;
+        const start = performance.now();
+        function step(now) {
+            const t = Math.min((now - start) / dur, 1);
+            const eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = fmt(target * eased);
+            if (t < 1) requestAnimationFrame(step);
+            else el.textContent = fmt(target);
+        }
+        requestAnimationFrame(step);
+    }
+
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { run(e.target); obs.unobserve(e.target); }
+        });
+    }, { threshold: 0.6 });
+    stats.forEach(s => obs.observe(s));
+})();
+
+// III. ONLINE — comments (random 6 of 100)
+(function () {
+    const grid = document.getElementById('commentsGrid');
+    const btn = document.getElementById('commentsShuffle');
+    if (!grid) return;
+
+    // Storage of 100 comments
+    const TEXTS = [
+        "Cách bạn kể chuyện cuốn thật sự, xem không rời mắt được.",
+        "This is so well edited, the pacing is perfect 👏",
+        "Giọng văn của bạn rất riêng, mong ra thêm video!",
+        "Học được nhiều từ cách bạn dựng nội dung, cảm ơn nha.",
+        "Saigon footage hits different. Beautiful work.",
+        "Bạn làm về truyền thông hợp ghê, rất chuyên nghiệp.",
+        "Video nào cũng chỉn chu, đáng follow.",
+        "The storytelling here is next level, keep going!",
+        "Mình share cho cả lớp xem rồi đó 😍",
+        "Quá xịn, từ hình ảnh tới câu chữ đều đẹp.",
+        "Cảm giác như đang đọc một bài tạp chí vậy.",
+        "Honestly inspiring for a high school student, respect.",
+        "Phần lồng tiếng nghe rất chữa lành.",
+        "Mình mê cái gu thẩm mỹ của bạn lắm.",
+        "Bạn có khiếu làm content thật sự đó nha.",
+        "Every frame looks intentional. Love it.",
+        "Xem xong tự nhiên muốn cầm máy đi quay luôn.",
+        "Nội dung chất lượng giữa một biển video nhạt.",
+        "Bạn nói đúng điều mình nghĩ mà không diễn đạt được.",
+        "RMIT mà không nhận bạn thì phí lắm 😂",
+        "Cú máy mở đầu đỉnh quá trời.",
+        "Cảm ơn vì đã làm content tử tế.",
+        "So clean, so thoughtful. Subscribed.",
+        "Cái caption hay hơn cả nội dung của mấy page lớn.",
+        "Mình tua lại 3 lần để xem cách bạn chuyển cảnh.",
+        "Tài năng trẻ của Việt Nam đây rồi.",
+        "Bạn truyền cảm hứng cho tụi mình ghê.",
+        "Màu phim đẹp dã man.",
+        "Đỉnh của chóp, không có gì để chê.",
+        "Love how you mix Vietnamese culture into modern storytelling.",
+        "Xem mà nổi da gà ở đoạn cuối.",
+        "Bạn có tâm với từng chi tiết nhỏ.",
+        "Quá trời ý tưởng hay, theo dõi liền.",
+        "Bài nào cũng để lại điều gì đó để suy nghĩ.",
+        "The transitions are buttery smooth.",
+        "Mình là dân chuyên truyền thông mà còn học được.",
+        "Bạn xứng đáng nhiều người biết tới hơn.",
+        "Nghe nhạc nền chọn khéo ghê.",
+        "Cách bạn đặt vấn đề rất thông minh.",
+        "Genuinely one of the best young creators here.",
+        "Đoạn phỏng vấn thật và đời.",
+        "Bạn làm mình yêu Sài Gòn hơn.",
+        "Hình ảnh ổn áp, nội dung sâu sắc.",
+        "Keep this energy, you'll go far!",
+        "Mỗi video là một bài học nhỏ.",
+        "Coi mà thấy nể độ chịu khó.",
+        "Editing này mà tự học thì quá giỏi.",
+        "Bạn có chất riêng không lẫn vào đâu được.",
+        "Tự nhiên thấy có động lực làm việc luôn.",
+        "Underrated creator fr fr.",
+        "Lời dẫn cuốn từ giây đầu tiên.",
+        "Cái kết mở làm mình nghĩ mãi.",
+        "Bạn quay bằng gì mà đẹp vậy ạ?",
+        "Mình mong có series về Sài Gòn nữa.",
+        "Chỉn chu từ thumbnail tới nội dung.",
+        "Your voice-over is so calming.",
+        "Đúng kiểu content mình tìm bấy lâu nay.",
+        "Hay tới mức mình phải comment lần đầu.",
+        "Bạn làm về văn hoá rất có chiều sâu.",
+        "Quá tự hào về Gen Z Việt Nam.",
+        "This deserves to go viral.",
+        "Mình đã lưu lại để xem lại nhiều lần.",
+        "Cách bạn kết hợp chữ và hình rất nghệ.",
+        "Nội dung có đầu tư thấy rõ.",
+        "Bạn nói chuyện có duyên ghê.",
+        "Mượt từ đầu tới cuối, không một chỗ hụt.",
+        "Insane quality for someone so young.",
+        "Bài này chữa lành một ngày mệt mỏi của mình.",
+        "Càng xem càng cuốn.",
+        "Bạn là lý do mình mở TikTok mỗi ngày.",
+        "Góc quay sáng tạo thật sự.",
+        "Cảm xúc được đẩy lên rất tự nhiên.",
+        "Mình recommend kênh này cho mọi người.",
+        "Such a unique editorial style.",
+        "Nội dung sạch, không câu view rẻ tiền.",
+        "Bạn làm mình muốn học truyền thông luôn.",
+        "Đỉnh cao của sự tinh tế.",
+        "Từng khung hình như một bức ảnh.",
+        "Mình mê cách bạn dùng tiếng Việt.",
+        "Storytelling that actually means something.",
+        "Bạn có gu nhạc xịn ghê.",
+        "Đầu tư chỉn chu mà vẫn rất tự nhiên.",
+        "Xem xong muốn đi Sài Gòn liền.",
+        "Bạn là tương lai của ngành này.",
+        "Cách dẫn dắt cảm xúc quá tài.",
+        "This is art, not just content.",
+        "Mình học cách viết caption từ bạn đó.",
+        "Quá nể bạn nhỏ tuổi mà làm chắc tay.",
+        "Đoạn slow-mo đẹp nín thở.",
+        "Bạn truyền tải thông điệp rất rõ.",
+        "Coi đi coi lại không chán.",
+        "Hiếm creator nào tử tế với chữ nghĩa như bạn.",
+        "You've got a real eye for detail.",
+        "Mình tin bạn sẽ làm được điều lớn lao.",
+        "Nội dung vừa đẹp vừa có ý nghĩa.",
+        "Càng ngày càng lên tay.",
+        "Bạn làm về Việt Nam mà rất quốc tế.",
+        "Đỉnh thật sự, không nói nhiều.",
+        "Mong chờ video tiếp theo của bạn ❤️",
+        "Cứ giữ chất này nhé, tụi mình ủng hộ!"
+    ];
+
+    const USERS = ["linh.ng", "minhquan", "an.pham", "thuy.dang", "kai_tran", "bao.le",
+        "ngocanh", "duy.huynh", "mai.vu", "phuc.do", "ha.my", "khoa.nguyen",
+        "trang.bui", "long.vo", "yenn", "tinhle", "vy.tran", "dat.ng",
+        "saigon.kid", "the.editor", "hannah_t", "quoc.bao", "chi.lam", "uyenn"];
+
+    function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function sample(arr, n) {
+        const pool = arr.slice();
+        const out = [];
+        for (let i = 0; i < n && pool.length; i++) {
+            out.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+        }
+        return out;
+    }
+
+    function timeAgo() {
+        const opts = ["2h", "5h", "1d", "3d", "1w", "2w", "12h", "4d", "6h", "3w"];
+        return rand(opts);
+    }
+
+    function render() {
+        const picks = sample(TEXTS, 6);
+        grid.innerHTML = '';
+        picks.forEach((text, i) => {
+            const user = rand(USERS);
+            const likes = (Math.floor(Math.random() * 980) + 12).toLocaleString('en-US');
+            const card = document.createElement('article');
+            card.className = 'comment-card';
+            card.style.animationDelay = (i * 60) + 'ms';
+            card.innerHTML =
+                '<div class="comment-top">' +
+                '<span class="comment-ava">' + user.charAt(0).toUpperCase() + '</span>' +
+                '<div><div class="comment-user">@' + user + '</div>' +
+                '<div class="comment-meta">' + timeAgo() + ' ago</div></div></div>' +
+                '<p class="comment-text">' + text + '</p>' +
+                '<div class="comment-likes"><span class="heart">♥</span> ' + likes + '</div>';
+            grid.appendChild(card);
+        });
+        if (typeof ScrollTrigger !== 'undefined') {
+            setTimeout(() => ScrollTrigger.refresh(), 50);
+        }
+    }
+
+    render();
+    if (btn) btn.addEventListener('click', render);
+})();
+
+// IV. CERTIFICATES — Drive reveal + lightbox
+(function () {
+    const folderBtn = document.getElementById('certFolderBtn');
+    const drive = document.getElementById('certDrive');
+    const backBtn = document.getElementById('driveBack');
+    const lightbox = document.getElementById('certLightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbTitle = document.getElementById('lightboxTitle');
+    const lbMeta = document.getElementById('lightboxMeta');
+    const lbClose = document.getElementById('lightboxClose');
+
+    if (folderBtn && drive) {
+        folderBtn.addEventListener('click', () => {
+            const isOpen = !drive.hasAttribute('hidden');
+            if (isOpen) return;
+            drive.removeAttribute('hidden');
+            folderBtn.setAttribute('aria-expanded', 'true');
+            if (typeof ScrollTrigger !== 'undefined') setTimeout(() => ScrollTrigger.refresh(), 50);
+            const scrollEl = drive;
+            if (typeof lenis !== 'undefined' && lenis) {
+                lenis.scrollTo(scrollEl, { offset: -80, duration: 1.2 });
+            } else {
+                scrollEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
+
+    if (backBtn && drive) {
+        backBtn.addEventListener('click', () => {
+            drive.setAttribute('hidden', '');
+            if (folderBtn) {
+                folderBtn.setAttribute('aria-expanded', 'false');
+                const cover = document.getElementById('certCover');
+                const target = cover || folderBtn;
+                if (typeof lenis !== 'undefined' && lenis) lenis.scrollTo(target, { offset: -120, duration: 1.0 });
+                else target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            if (typeof ScrollTrigger !== 'undefined') setTimeout(() => ScrollTrigger.refresh(), 50);
+        });
+    }
+
+    function openLightbox(file) {
+        if (!lightbox) return;
+        const img = file.dataset.img || (file.querySelector('img') && file.querySelector('img').src);
+        lbImg.src = img || '';
+        lbImg.alt = file.dataset.title || '';
+        lbTitle.textContent = file.dataset.title || '';
+        lbMeta.textContent = file.dataset.meta || '';
+        lightbox.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.drive-file').forEach(file => {
+        file.addEventListener('click', () => openLightbox(file));
+        file.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(file); }
+        });
+    });
+
+    if (lbClose) lbClose.addEventListener('click', closeLightbox);
+    if (lightbox) lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 })();

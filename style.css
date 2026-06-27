@@ -1017,3 +1017,77 @@ b, strong {
     transition: none !important;
   }
 }
+
+/* ===================== EXPANSION: impact / gallery / roles / why ===================== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+.gallery .frame { aspect-ratio: 1; }
+@media (max-width: 620px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+
+.callout { max-width: 62ch; margin-top: 2rem; }
+.callout .board__hd { color: var(--pink); margin-bottom: .6rem; }
+.callout p { margin: 0; }
+
+.roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 1.8rem;
+  list-style: none;
+  padding: 0;
+}
+.roles li {
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: .82rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: .45rem .85rem;
+  background: #fff;
+}
+.roles li b { color: var(--violet); font-weight: 700; }
+
+.impact { background: var(--violet); color: #fff; position: relative; overflow: hidden; }
+.impact::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 120% at 90% 0%, rgba(200, 249, 75, .16), transparent 60%);
+  pointer-events: none;
+}
+.impact .kicker { color: var(--lime); }
+.impact .title { color: #fff; }
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.6rem, 4vw, 2.6rem) 1.5rem;
+  margin-top: clamp(2.2rem, 5vw, 3rem);
+  position: relative;
+  z-index: 1;
+}
+.impact .fig b {
+  font-family: var(--disp);
+  font-weight: 900;
+  font-size: clamp(2.1rem, 6vw, 4rem);
+  line-height: .88;
+  letter-spacing: -.03em;
+  color: var(--lime);
+  display: block;
+}
+.impact .fig small {
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: .84rem;
+  letter-spacing: .03em;
+  display: block;
+  margin-top: .55rem;
+  opacity: .92;
+}
+@media (max-width: 720px) { .impact-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.why .prose { max-width: 60ch; }
+.why .bullets li::before { background: var(--lime); }

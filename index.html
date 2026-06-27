@@ -20,6 +20,7 @@
         <a href="#resume">My resume</a>
         <a href="#projects">My projects</a>
         <a href="#rhythm">My rhythm</a>
+        <a href="#why">Why RMIT</a>
       </div>
     </div>
   </nav>
@@ -65,7 +66,17 @@
             <div class="frame blue r3 tall"><div class="ph fp3"><img src="images/portrait.jpg" alt="" loading="lazy" onerror="this.remove()"><span>portrait</span></div></div>
             <div class="frame green r2"><div class="ph fp2"><img src="images/about-2.jpg" alt="" loading="lazy" onerror="this.remove()"><span>creating</span></div></div>
           </div>
-          <div style="margin-top:1rem"><span class="anno pink"><svg class="arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 6 C 20 8, 32 16, 30 32 M30 32 L 36 24 M30 32 L 22 28"/></svg> add your real pics → images/ folder</span></div>
+        </div>
+      </div>
+
+      <!-- moments gallery -->
+      <div style="margin-top:clamp(2.5rem,5vw,3.5rem)">
+        <span class="anno blue">a few moments <svg class="arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 6 C 20 8, 32 16, 30 32 M30 32 L 36 24 M30 32 L 22 28"/></svg></span>
+        <div class="gallery">
+          <div class="frame yellow r-2"><div class="ph fp4"><img src="images/moment-1.jpg" alt="" loading="lazy" onerror="this.remove()"><span>on set</span></div></div>
+          <div class="frame green r2"><div class="ph fp2"><img src="images/moment-2.jpg" alt="" loading="lazy" onerror="this.remove()"><span>on stage</span></div></div>
+          <div class="frame pink r3"><div class="ph fp1"><img src="images/moment-3.jpg" alt="" loading="lazy" onerror="this.remove()"><span>the team</span></div></div>
+          <div class="frame blue r-4"><div class="ph fp3"><img src="images/moment-4.jpg" alt="" loading="lazy" onerror="this.remove()"><span>game day</span></div></div>
         </div>
       </div>
     </div>
@@ -77,6 +88,13 @@
     <div class="wrap" style="position:relative;z-index:2">
       <p class="kicker reveal">my resume</p>
       <h2 class="title reveal">Education<span class="sub">&amp; achievements</span></h2>
+      <p class="lead reveal">Mostly a math kid who kept saying yes to things outside the syllabus.</p>
+
+      <!-- proudest callout -->
+      <div class="board callout reveal">
+        <div class="board__hd">the one I'm proudest of ✦</div>
+        <p>I hit <b>IELTS 7.5</b> after a focused two-week sprint at the start of Grade 12 - then refused to stop there. For the retake I treated it like a systems problem, not a vocab grind: hunting my own margin errors, dissecting synonym traps, sharpening spontaneous thinking under time pressure. Two weeks later: <b>IELTS 8.0</b>. That loop (analyse the gap, fix it fast) is how I approach everything.</p>
+      </div>
 
       <ul class="bullets reveal">
         <li><b>PTNK - VNU-HCM High School for the Gifted</b>, Maths-Interdisciplinary track <span class="yr">2023–26</span></li>
@@ -89,7 +107,7 @@
       </ul>
 
       <!-- creator achievements as numbers (from the math TikTok) -->
-      <div class="statline reveal">
+      <div class="statline reveal" data-countgroup>
         <div class="s"><b class="pink" data-num="13.4" data-suf="M"></b><small>views</small></div>
         <div class="s"><b class="blue" data-num="15" data-suf="K+"></b><small>followers</small></div>
         <div class="s"><b class="green" data-num="800" data-suf="K+"></b><small>likes</small></div>
@@ -110,7 +128,7 @@
     <div class="wrap">
       <p class="kicker reveal">my projects</p>
       <h2 class="title reveal">Stuff I put<span class="sub">on screen</span></h2>
-      <p class="lead reveal">Where I learned the most about reaching people.</p>
+      <p class="lead reveal">The work where I actually learned how to reach people, each one through something that went wrong first.</p>
 
       <div style="margin-top:clamp(2rem,5vw,3rem)">
 
@@ -123,8 +141,12 @@
           <div>
             <div class="proj__role">founder · script · edit · on-camera</div>
             <h3>Math, but make it scroll-stopping <span class="v">▶ 13.4M</span></h3>
-            <div class="prose"><p>An educational TikTok that turns intimidating formulas into short videos middle-schoolers actually watch. It grew from zero to a real community — and taught me that reach isn't luck, it's structure: hook, tension, release. The comments turned me into a mentor.</p></div>
+            <div class="prose">
+              <p>It started as one video explaining a single formula. It became an educational channel for middle-schoolers across Vietnam. I rewrote intimidating math into 15-second stories with a hook in the very first second, and watched it climb to <b>13.4M views</b>, 15K+ followers, 800K+ likes and nearly 100K hours watched.</p>
+              <p>The real reward wasn't the numbers, it was the comments. Kids saying math finally clicked; parents thanking me. I didn't just post formulas, I became the mentor I wish I'd had at their age.</p>
+            </div>
             <ul class="tags"><li><b>13.4M</b> views</li><li><b>800K+</b> likes</li><li><b>15K+</b> followers</li><li><b>~100K</b> hrs watched</li></ul>
+            <p style="font-family:var(--mark);color:var(--violet);font-size:1.15rem;margin:.9rem 0 0">lesson: attention is engineered, never lucky: hook, tension, release.</p>
           </div>
         </article>
 
@@ -137,8 +159,12 @@
           <div>
             <div class="proj__role">project manager · lead editor</div>
             <h3>“Thước Phim Tuổi Học Trò” <span class="v">★ 1st place</span></h3>
-            <div class="prose"><p>Led our Teachers' Day tribute film against 30+ classes school-wide. Instead of doing it all myself, I split editing by each classmate's strengths and owned the structure, colour, sound sync and pacing, so everyone contributed and the cut still looked clean. We took <b>First Place (Giải Nhất)</b>.</p></div>
+            <div class="prose">
+              <p>For Vietnamese Teachers' Day I led our class's tribute film against entries from <b>30+ classes</b>. The smart move wasn't doing everything myself: it was casting my classmates by their strengths and assigning edits to match, while I held the spine: structure, colour grade, sound sync and pacing.</p>
+              <p>Everyone contributed, yet the final cut looked like one hand made it. We took <b>First Place (Giải Nhất)</b> school-wide.</p>
+            </div>
             <ul class="tags"><li><b>1st</b> of 30+ classes</li><li>PM <b>+ lead editor</b></li><li>tight <b>deadline</b></li></ul>
+            <p style="font-family:var(--mark);color:var(--violet);font-size:1.15rem;margin:.9rem 0 0">lesson: great media is delegation held together by one clear vision.</p>
           </div>
         </article>
 
@@ -149,10 +175,14 @@
             <span class="anno blue">+300% growth →</span>
           </div>
           <div>
-            <div class="proj__role">head of media · PBaC</div>
+            <div class="proj__role">head of media · PTNK Badminton Club</div>
             <h3>Reviving a club's whole presence <span class="v">↑ 300%</span></h3>
-            <div class="prose"><p>Took over media for the PTNK Badminton Club when posts were getting under 20 views. I rebuilt the brand, ran a fixed content calendar, and drove a <b>300% follower jump</b>. Then I led the media campaign for “Thundera”, a regional tournament with 200+ players (promos, live coverage, sponsor exposure), ending the term at 20,000+ reach.</p></div>
+            <div class="prose">
+              <p>I inherited a club whose posts were getting <b>under 20 views</b>. I rebuilt its visual identity, switched to a two-way communication model and a fixed content calendar tied to training and member spotlights, driving a <b>300% follower jump</b> and a record recruitment season.</p>
+              <p>Then I ran the full media pipeline for “Thundera”, a regional tournament with <b>200+ players</b> co-hosted with Bùi Thị Xuân and Nguyễn Thị Minh Khai (teasers, live coverage, sponsor cross-promo), closing the term at 20,000+ reach.</p>
+            </div>
             <ul class="tags"><li><b>300%</b> growth</li><li><b>20K+</b> reach</li><li>“Thundera” <b>200+ players</b></li></ul>
+            <p style="font-family:var(--mark);color:var(--violet);font-size:1.15rem;margin:.9rem 0 0">lesson: a dead channel is an audience problem, not a posting problem.</p>
           </div>
         </article>
 
@@ -165,8 +195,12 @@
           <div>
             <div class="proj__role">head of organizing committee</div>
             <h3>GSALCTLN Charity Concert <span class="v">♥ charity</span></h3>
-            <div class="prose"><p>Conceived and directed a student-led Christmas charity concert end-to-end: marketing, a week-long “lucky ticket” fundraiser, logistics, stage &amp; AV, and cross-club food-stall partnerships. We secured 5M VND in sponsorship and raised <b>7M VND total</b>, all donated to Mái Ấm Thiên Thần (District 9).</p></div>
+            <div class="prose">
+              <p>I conceived and directed a student-led Christmas charity concert end-to-end. Before the show I drove marketing and a week-long “lucky ticket” fundraiser, securing <b>5M VND</b> in sponsorship. On the night I coordinated stage, audio-visual and lighting, and structured cross-club food-stall partnerships with 100% of profits going to the cause.</p>
+              <p>We raised <b>7M VND total</b>, audited and donated in full to Mái Ấm Thiên Thần (District 9).</p>
+            </div>
             <ul class="tags"><li><b>7M VND</b> raised &amp; donated</li><li><b>head</b> organiser</li><li>cross-club <b>collabs</b></li></ul>
+            <p style="font-family:var(--mark);color:var(--violet);font-size:1.15rem;margin:.9rem 0 0">lesson: real impact needs structured, entrepreneurial leadership, not just good intentions.</p>
           </div>
         </article>
 
@@ -178,11 +212,40 @@
           <div>
             <div class="proj__role">head of advanced math · The LAB</div>
             <h3>Building a curriculum from scratch <span class="v">free classes</span></h3>
-            <div class="prose"><p>Invited to design the advanced-math track for The LAB, an org prepping middle-schoolers for specialised-school entrance exams. I built the modules, mock papers and a progress-tracking system from zero, and ran free online masterclasses that pulled hundreds of registrations, plus a weekly “Math Hack of the Week” to keep students hooked.</p></div>
+            <div class="prose">
+              <p>I was invited to design the advanced-math track for The LAB, an org prepping middle-schoolers for specialised-school entrance exams. I built the modules, mock papers and a progress-tracking system from zero, then ran free online masterclasses that pulled <b>hundreds of registrations</b>, plus a weekly “Math Hack of the Week” to keep curiosity high.</p>
+            </div>
             <ul class="tags"><li><b>curriculum</b> from scratch</li><li><b>hundreds</b> enrolled</li><li>free <b>masterclasses</b></li></ul>
+            <p style="font-family:var(--mark);color:var(--violet);font-size:1.15rem;margin:.9rem 0 0">lesson: teaching well is product design with a human at the centre.</p>
           </div>
         </article>
 
+      </div>
+
+      <!-- more roles -->
+      <p class="kicker reveal" style="margin-top:clamp(2rem,4vw,3rem)">and a few more hats</p>
+      <ul class="roles reveal">
+        <li>Producer - band <b>“Ngắt”</b></li>
+        <li>Deputy Comms Head - <b>Ocean</b> Education &amp; Training</li>
+        <li>Top contributor - <b>PTNK TikTok Team</b></li>
+        <li>Champion (striker) - <b>PTNK Football</b></li>
+        <li>Organizing Committee - <b>PTNK Sports Festival</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== IMPACT BAND ===================== -->
+  <section class="band impact">
+    <div class="wrap">
+      <p class="kicker reveal">the receipts</p>
+      <h2 class="title reveal">Impact, in numbers.</h2>
+      <div class="impact-grid" data-countgroup>
+        <div class="fig reveal"><b data-num="13.4" data-suf="M">0</b><small>video views earned</small></div>
+        <div class="fig reveal"><b data-num="800" data-suf="K+">0</b><small>likes across my content</small></div>
+        <div class="fig reveal"><b data-num="7" data-suf="M">0</b><small>VND raised for charity</small></div>
+        <div class="fig reveal"><b data-num="300" data-suf="%">0</b><small>club follower growth</small></div>
+        <div class="fig reveal"><b data-num="200" data-suf="+">0</b><small>players at one event</small></div>
+        <div class="fig reveal"><b data-num="100" data-suf="s">0</b><small>students taught for free</small></div>
       </div>
     </div>
   </section>
@@ -201,6 +264,8 @@
         <div class="fact reveal"><div class="emo">✂️</div><div><h4>Editing</h4><p>Hours on one cut, one sound cue, one caption rhythm. It's the difference between amateur and “wait, who made this?”.</p></div></div>
         <div class="fact reveal"><div class="emo">🧑‍🏫</div><div><h4>Mentoring</h4><p>15K+ young followers turned my comments into office hours. Helping a kid finally “get it” beats any view count.</p></div></div>
         <div class="fact reveal"><div class="emo">🎨</div><div><h4>Design</h4><p>Self-taught in Canva &amp; Procreate: thumbnails, posters, brand identities for the clubs and events I run.</p></div></div>
+        <div class="fact reveal"><div class="emo">🎤</div><div><h4>Public speaking</h4><p>Second Prize in a book-presentation contest as a 6th-grader against 9th-graders. The stage stopped scaring me early.</p></div></div>
+        <div class="fact reveal"><div class="emo">📷</div><div><h4>Filmmaking</h4><p>A camera is my favourite excuse to slow down and frame a moment before it's gone, then cut it into a story.</p></div></div>
       </div>
 
       <!-- interactive soundboard -->
@@ -215,6 +280,24 @@
           <button class="pad p6" data-f="783.99">fx</button>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY RMIT ===================== -->
+  <section class="band why" id="why">
+    <svg class="doodle" style="right:7%;top:18%;width:clamp(34px,5vw,56px)" viewBox="0 0 100 100" aria-hidden="true"><path fill="var(--blue)" d="M50 4l11 30 32 1-25 20 9 31-27-19-27 19 9-31-25-20 32-1z"/></svg>
+    <div class="wrap" style="position:relative;z-index:2">
+      <p class="kicker reveal">why rmit</p>
+      <h2 class="title reveal">What I'll bring<span class="sub">to RMIT.</span></h2>
+      <div class="prose reveal">
+        <p>Every project I've run points the same way: I want to do this for real. RMIT's <b>Professional Communication</b> program is where I can turn instinct into craft: understand the <i>why</i> behind what connects, and build campaigns that actually mean something.</p>
+      </div>
+      <ul class="bullets reveal" style="margin-top:1.6rem">
+        <li><b>A real audience, ready to mobilise.</b> I've spent two years making Vietnamese viewers care through a screen. I'd love to put that to work globalising RMIT's brand and showing the world its student life.</li>
+        <li><b>Learning agility.</b> 7.5 → 8.0 in two weeks; zero → a 13.4M-view channel. I close gaps fast, which is exactly what a fast-paced media community needs from day one.</li>
+        <li><b>Leadership that ships.</b> From a 7M-VND charity concert to a 300% club turnaround, I don't just plan, I deliver, on deadline, with a team behind me.</li>
+      </ul>
+      <div style="margin-top:1.6rem"><span class="anno pink">let's build something →</span></div>
     </div>
   </section>
 

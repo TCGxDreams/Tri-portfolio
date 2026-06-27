@@ -36,18 +36,19 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* count-up */
-  var counted = false;
-  var cio = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (e.isIntersecting && !counted) {
-        counted = true;
-        document.querySelectorAll('.statline b').forEach(run);
-      }
-    });
-  }, { threshold: .4 });
-  var sl = document.querySelector('.statline');
-  if (sl) cio.observe(sl);
+  /* count-up (per group) */
+  document.querySelectorAll('[data-countgroup]').forEach(function (group) {
+    var done = false;
+    var o = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !done) {
+          done = true;
+          group.querySelectorAll('b[data-num]').forEach(run);
+        }
+      });
+    }, { threshold: .35 });
+    o.observe(group);
+  });
 
   function run(b) {
     var target = parseFloat(b.getAttribute('data-num'));

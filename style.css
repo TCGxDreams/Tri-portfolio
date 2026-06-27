@@ -690,8 +690,8 @@ b, strong {
 }
 
 .proj__media .frame {
-  width: clamp(8.5rem, 22vw, 11rem);
-  aspect-ratio: 9/16;
+  width: clamp(13rem, 30vw, 18rem);
+  aspect-ratio: 4/3;
 }
 
 .proj__role {
@@ -1074,17 +1074,24 @@ b, strong {
   z-index: 1;
 }
 .impact .fig b {
-  font-family: var(--disp);
+  font-family: "Archivo", sans-serif;
   font-weight: 900;
-  font-size: clamp(2.1rem, 6vw, 4rem);
-  line-height: .88;
+  font-size: clamp(2rem, 5.5vw, 3.4rem);
+  line-height: .92;
   letter-spacing: -.03em;
   color: #C8F94B;
   display: block;
+  white-space: nowrap;
 }
-.impact .fig small {
+/* suffix injected by count-up JS — must stay INLINE, never block */
+.impact .fig b small {
+  font-size: .5em;
+  font-weight: 800;
+}
+/* label sits on its own line BELOW the number */
+.impact .fig .lbl {
   display: block;
-  margin-top: .55rem;
+  margin-top: .5rem;
   color: #ffffff;
   opacity: .92;
   font-weight: 600;
@@ -1247,5 +1254,94 @@ b, strong {
 /* Magnetic transition classes */
 .pill, .socials a, .nav__links a, .nav__logo {
   transition: transform 0.3s cubic-bezier(.34, 1.4, .5, 1);
+}
+
+/* ===================== TIKTOK SECTION ===================== */
+.tiktok-band { background: #fff; }
+
+.tiktok-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.4rem, 3vw, 2rem) clamp(2rem, 6vw, 4rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+  align-items: flex-end;
+}
+
+.tstat b {
+  font-family: var(--disp);
+  font-weight: 900;
+  font-size: clamp(2rem, 5.5vw, 3.4rem);
+  line-height: .92;
+  letter-spacing: -.03em;
+  color: var(--purple);
+  display: block;
+  white-space: nowrap;
+}
+
+/* suffix injected by count-up JS — inline, never block */
+.tstat b small { font-size: .5em; font-weight: 800; }
+
+.tstat .lbl {
+  display: block;
+  margin-top: .4rem;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: .82rem;
+  letter-spacing: .03em;
+}
+
+.tiktok-frames {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: clamp(2rem, 5vw, 3rem);
+  align-items: center;
+}
+
+.tiktok-frames .frame {
+  width: clamp(7rem, 18vw, 10rem);
+  aspect-ratio: 9/16;
+}
+
+.tiktok-anno {
+  align-self: center;
+}
+
+.tiktok-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: clamp(1.6rem, 4vw, 2.4rem);
+  font-family: var(--ui);
+  font-weight: 700;
+  font-size: .88rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  padding: .6rem 1.6rem;
+  background: var(--ink);
+  color: #fff;
+  transition: transform .2s var(--bounce), background .2s, border-color .2s;
+}
+
+.tiktok-cta:hover {
+  background: var(--pink);
+  border-color: var(--pink);
+  transform: translateY(-2px);
+}
+
+.tiktok-lesson {
+  font-family: var(--mark);
+  color: var(--violet);
+  font-size: clamp(1.05rem, 1.6vw, 1.5rem);
+  margin: clamp(1.2rem, 3vw, 2rem) 0 0;
+  transform: rotate(-1.5deg);
+  display: inline-block;
+  line-height: 1.4;
+}
+
+@media (max-width: 560px) {
+  .tiktok-frames .frame { width: clamp(6rem, 28vw, 8.5rem); }
 }
 

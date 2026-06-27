@@ -20,11 +20,16 @@
     io.observe(a);
   });
 
-  /* active nav link */
-  var ids = ['about', 'resume', 'projects', 'rhythm'];
+  /* active nav link + progress bar */
+  var ids = ['about', 'resume', 'projects', 'rhythm', 'why'];
   var links = document.querySelectorAll('.nav__links a');
+  var progress = document.getElementById('scroll-progress');
   function onScroll() {
     var st = scrollY, mid = st + innerHeight * .35, act = 0;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (progress && docHeight > 0) {
+      progress.style.width = Math.min(100, Math.max(0, (st / docHeight) * 100)) + '%';
+    }
     ids.forEach(function (id, i) {
       var s = document.getElementById(id);
       if (s && s.offsetTop <= mid) act = i;
@@ -102,4 +107,57 @@
       } catch (e) { }
     });
   });
+
+  /* hero staggered entrance */
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      document.querySelectorAll('.hello .reveal').forEach(function (el, i) {
+        setTimeout(function () {
+          el.classList.add('in');
+        }, i * 150);
+      });
+    }, 100);
+  });
+
+  /* parallax on doodles */
+  if (!reduce) {
+    var shapes = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+    addEventListener('scroll', function () {
+      var y = scrollY;
+      shapes.forEach(function (s) {
+        var k = parseFloat(s.getAttribute('data-parallax')) || 0.12;
+        s.style.transform = 'translateY(' + (y * k) + 'px)';
+      });
+    }, { passive: true });
+  }
+
+  /* hover-tilt on frames */
+  if (!reduce && window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.frame').forEach(function (f) {
+      f.addEventListener('mousemove', function (e) {
+        var r = f.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        f.style.transform = 'perspective(700px) rotateX(' + (py * -6) + 'deg) rotateY(' + (px * 6) + 'deg) translateY(-4px)';
+      });
+      f.addEventListener('mouseleave', function () {
+        f.style.transform = '';
+      });
+    });
+  }
+
+  /* magnetic hover on pills/links */
+  if (!reduce && window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.pill, .socials a, .nav__links a, .nav__logo').forEach(function (b) {
+      b.addEventListener('mousemove', function (e) {
+        var r = b.getBoundingClientRect();
+        var x = e.clientX - (r.left + r.width / 2);
+        var y = e.clientY - (r.top + r.height / 2);
+        b.style.transform = 'translate(' + (x * 0.35) + 'px, ' + (y * 0.35) + 'px)';
+      });
+      b.addEventListener('mouseleave', function () {
+        b.style.transform = '';
+      });
+    });
+  }
 })();

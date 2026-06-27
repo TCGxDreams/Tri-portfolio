@@ -10,6 +10,8 @@
   --blue: #4FA0E8;
   --yellow: #FFC93B;
   --purple: #8B5CF6;
+  --violet: #5B16E0;
+  --lime: #C8F94B;
 
   --disp: "Archivo", sans-serif;
   --ui: "Poppins", system-ui, sans-serif;
@@ -37,7 +39,9 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: radial-gradient(rgba(26, 26, 31, .045) 1px, transparent 1px);
+  background-size: 22px 22px;
   color: var(--ink);
   font-family: var(--ui);
   font-weight: 400;
@@ -79,7 +83,7 @@ img {
 }
 
 .band.alt {
-  background: var(--bg2);
+  background-color: var(--bg2);
 }
 
 /* section title - heavy black, like the model */
@@ -1051,16 +1055,16 @@ b, strong {
 }
 .roles li b { color: var(--violet); font-weight: 700; }
 
-.impact { background: var(--violet); color: #fff; position: relative; overflow: hidden; }
+.impact { background: #5B16E0; color: #ffffff; position: relative; overflow: hidden; }
 .impact::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(60% 120% at 90% 0%, rgba(200, 249, 75, .16), transparent 60%);
   pointer-events: none;
+  background: radial-gradient(60% 120% at 90% 0%, rgba(200, 249, 75, .16), transparent 60%);
 }
-.impact .kicker { color: var(--lime); }
-.impact .title { color: #fff; }
+.impact .kicker { color: #C8F94B; }
+.impact .title { color: #ffffff; }
 .impact-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1075,19 +1079,173 @@ b, strong {
   font-size: clamp(2.1rem, 6vw, 4rem);
   line-height: .88;
   letter-spacing: -.03em;
-  color: var(--lime);
+  color: #C8F94B;
   display: block;
 }
 .impact .fig small {
-  font-family: var(--ui);
+  display: block;
+  margin-top: .55rem;
+  color: #ffffff;
+  opacity: .92;
   font-weight: 600;
   font-size: .84rem;
   letter-spacing: .03em;
-  display: block;
-  margin-top: .55rem;
-  opacity: .92;
 }
 @media (max-width: 720px) { .impact-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .why .prose { max-width: 60ch; }
 .why .bullets li::before { background: var(--lime); }
+
+/* ===================== UPGRADES: PROGRESS, MARQUEE, STAGGER, PARALLAX, MAGNETIC ===================== */
+
+/* Sticky scroll-progress bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--pink), var(--lime), #00F3FF);
+  z-index: 1000;
+  transition: width 0.1s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #scroll-progress {
+    display: none;
+  }
+}
+
+/* Kinetic marquee dividers */
+.marq {
+  background: var(--ink);
+  color: #fff;
+  padding-block: 1.1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  user-select: none;
+  pointer-events: none;
+}
+
+.marq__t {
+  display: inline-block;
+  font-family: var(--disp);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 1rem + 2vw, 2.6rem);
+  letter-spacing: -.01em;
+  animation: marq 22s linear infinite;
+  padding-right: 2rem;
+}
+
+.marq__t span {
+  color: var(--lime);
+}
+
+@keyframes marq {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marq__t {
+    animation: none;
+  }
+}
+
+/* Highlight SVG underline animation */
+.highlight {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-svg {
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 12px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.underline-svg path {
+  fill: none;
+  stroke: var(--yellow);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .in .underline-svg path {
+    animation: draw-underline 0.8s cubic-bezier(.22,.68,.16,1) forwards;
+    animation-delay: 0.4s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .underline-svg path {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes draw-underline {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Section Kickers Index prefix */
+.kicker .idx {
+  color: var(--pink);
+  margin-right: 0.4rem;
+}
+
+/* Staggered scroll reveals */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+  .reveal-stagger.in > * {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-stagger.in > *:nth-child(1) { transition-delay: 0.05s; }
+  .reveal-stagger.in > *:nth-child(2) { transition-delay: 0.15s; }
+  .reveal-stagger.in > *:nth-child(3) { transition-delay: 0.25s; }
+  .reveal-stagger.in > *:nth-child(4) { transition-delay: 0.35s; }
+  .reveal-stagger.in > *:nth-child(5) { transition-delay: 0.45s; }
+  .reveal-stagger.in > *:nth-child(6) { transition-delay: 0.55s; }
+  .reveal-stagger.in > *:nth-child(7) { transition-delay: 0.65s; }
+  .reveal-stagger.in > *:nth-child(8) { transition-delay: 0.75s; }
+}
+
+/* Layering fixes (§4.1) */
+.doodle, .blob {
+  position: absolute;
+  z-index: 0 !important;
+  pointer-events: none;
+}
+
+.band > .wrap, section > .wrap, .hello .wrap {
+  position: relative;
+  z-index: 2 !important;
+}
+
+@media (max-width: 760px) {
+  .doodle {
+    transform: scale(.55);
+    opacity: .7;
+  }
+}
+
+/* Magnetic transition classes */
+.pill, .socials a, .nav__links a, .nav__logo {
+  transition: transform 0.3s cubic-bezier(.34, 1.4, .5, 1);
+}
+

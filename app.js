@@ -21,7 +21,7 @@
   });
 
   /* active nav link + progress bar */
-  var ids = ['about', 'resume', 'projects', 'rhythm', 'why'];
+  var ids = ['about', 'tiktok', 'resume', 'projects', 'rhythm', 'why'];
   var links = document.querySelectorAll('.nav__links a');
   var progress = document.getElementById('scroll-progress');
   function onScroll() {

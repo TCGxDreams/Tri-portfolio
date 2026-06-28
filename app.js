@@ -201,33 +201,4 @@
     });
   }
 
-  /* Custom cursor using translate3d for hardware acceleration (zero lag) */
-  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    var dot = document.querySelector('.cur-dot');
-    var ring = document.querySelector('.cur-ring');
-    if (dot && ring) {
-      var mx = 0, my = 0, rx = 0, ry = 0;
-      addEventListener('mousemove', function (e) {
-        mx = e.clientX;
-        my = e.clientY;
-        dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0)';
-      }, { passive: true });
-
-      (function loop() {
-        rx += (mx - rx) * 0.15;
-        ry += (my - ry) * 0.15;
-        ring.style.transform = 'translate3d(' + rx + 'px, ' + ry + 'px, 0)';
-        requestAnimationFrame(loop);
-      })();
-
-      document.querySelectorAll('a, button, .frame, .pad, .fact').forEach(function (el) {
-        el.addEventListener('mouseenter', function () {
-          ring.classList.add('hot');
-        });
-        el.addEventListener('mouseleave', function () {
-          ring.classList.remove('hot');
-        });
-      });
-    }
-  }
 })();

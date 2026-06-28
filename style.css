@@ -212,13 +212,16 @@ b, strong {
   text-align: center;
 }
 
-.frame .ph img {
+.frame .ph img,
+.frame img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   z-index: 1;
+  display: block;
 }
 
 .frame .ph span {
@@ -1417,7 +1420,8 @@ html.lenis, html.lenis body {
 }
 
 .proj__media .frame .ph {
-  position: relative;
+  position: absolute;
+  inset: 0;
 }
 
 .proj__media .frame .ph::after {
@@ -1461,44 +1465,5 @@ html.lenis, html.lenis body {
 .fig b.flash, .tstat b.flash {
   filter: brightness(1.4);
   transition: filter 0.25s var(--ease);
-}
-
-/* Custom cursor */
-@media (hover: hover) and (pointer: fine) {
-  body {
-    cursor: none;
-  }
-  a, button, .frame, .pad, .fact {
-    cursor: none;
-  }
-  .cur-dot, .cur-ring {
-    position: fixed;
-    left: 0;
-    top: 0;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    will-change: transform;
-  }
-  .cur-dot {
-    width: 8px;
-    height: 8px;
-    margin: -4px 0 0 -4px;
-    background: var(--ink);
-  }
-  .cur-ring {
-    width: 34px;
-    height: 34px;
-    margin: -17px 0 0 -17px;
-    border: 2px solid var(--ink);
-    transition: width 0.25s cubic-bezier(.34,1.4,.5,1), height 0.25s cubic-bezier(.34,1.4,.5,1), margin 0.25s cubic-bezier(.34,1.4,.5,1), background 0.25s, border-color 0.25s;
-  }
-  .cur-ring.hot {
-    width: 56px;
-    height: 56px;
-    margin: -28px 0 0 -28px;
-    background: rgba(139,92,246,0.15);
-    border-color: var(--purple);
-  }
 }
 

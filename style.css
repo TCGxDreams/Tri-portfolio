@@ -11,6 +11,7 @@
   --yellow: #FFC93B;
   --purple: #8B5CF6;
   --violet: #5B16E0;
+  --rmit: #070758;
   --lime: #C8F94B;
 
   --disp: "Archivo", sans-serif;
@@ -437,7 +438,7 @@ b, strong {
 }
 
 .hello h1 .hl {
-  color: var(--pink);
+  color: var(--rmit);
 }
 
 .hello__tag {

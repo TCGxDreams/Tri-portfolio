@@ -277,24 +277,24 @@
     // Story Cards Map
     var STORIES = {
       football: {
-        title: "Champion — PTNK Football",
-        body: "The PTNK Sports League is the school's biggest annual competition, and squad selection is on merit, not signup — I was picked as the main striker for the Maths-Interdisciplinary (TLN) team on the strength of my training and tactical reliability. Across three years we grew up together: an inexperienced roster took a surprise 3rd in the Thủ Đức bracket in Grade 10; we pushed to the quarterfinals in Grade 11 and learned composure under pressure; and in Grade 12, at full maturity, we won the School Championship with a decisive final over 11 Toán-LN1. It taught me that real teams are built on discipline, communication and shared responsibility — not talent alone."
+        title: "Champion - PTNK Football",
+        body: "The PTNK Sports League is the school's biggest annual competition, and squad selection is on merit, not signup - I was picked as the main striker for the Maths-Interdisciplinary (TLN) team on the strength of my training and tactical reliability. Across three years we grew up together: an inexperienced roster took a surprise 3rd in the Thủ Đức bracket in Grade 10; we pushed to the quarterfinals in Grade 11 and learned composure under pressure; and in Grade 12, at full maturity, we won the School Championship with a decisive final over 11 Toán-LN1. It taught me that real teams are built on discipline, communication and shared responsibility - not talent alone."
       },
       ngat: {
-        title: "Producer — band \"Ngắt\"",
-        body: "I produce for the student band 'Ngắt' — shaping arrangement, sound and pacing. A lot of my instinct for rhythm and timing as a video editor was trained right here."
+        title: "Producer - band \"Ngắt\"",
+        body: "I produce for the student band 'Ngắt' - shaping arrangement, sound and pacing. A lot of my instinct for rhythm and timing as a video editor was trained right here."
       },
       ocean: {
-        title: "Deputy Comms Head — Ocean Education & Training",
+        title: "Deputy Comms Head - Ocean Education & Training",
         body: "As deputy head of communications at Ocean Education & Training, I helped run the organisation's content and outreach."
       },
       tiktokteam: {
-        title: "Top contributor — PTNK TikTok Team",
+        title: "Top contributor - PTNK TikTok Team",
         body: "I'm a top contributor on PTNK's official TikTok team, helping make content that represents the school to a wider audience."
       },
       sportsfest: {
-        title: "Organizing Committee — PTNK Sports Festival",
-        body: "I served on the organising committee for the PTNK Sports Festival, the school's largest annual athletic event — helping run the operations behind the brackets and matches."
+        title: "Organizing Committee - PTNK Sports Festival",
+        body: "I served on the organising committee for the PTNK Sports Festival, the school's largest annual athletic event - helping run the operations behind the brackets and matches."
       }
     };
 

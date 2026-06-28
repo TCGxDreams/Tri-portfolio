@@ -1,6 +1,31 @@
 (function () {
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Lenis Smooth Scroll */
+  if (!reduce && typeof Lenis !== 'undefined') {
+    var lenis = new Lenis({
+      duration: 1.2,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Parallax scroll listener for Lenis smooth-scroll
+    lenis.on('scroll', function () {
+      var y = scrollY;
+      var shapes = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+      shapes.forEach(function (s) {
+        var k = parseFloat(s.getAttribute('data-parallax')) || 0.12;
+        s.style.transform = 'translateY(' + (y * k) + 'px)';
+      });
+    });
+  }
+
   /* reveal + arrow draw-in */
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
@@ -20,15 +45,23 @@
     io.observe(a);
   });
 
-  /* active nav link + progress bar */
+  /* active nav link + progress bar + scroll cue */
   var ids = ['about', 'tiktok', 'resume', 'projects', 'rhythm', 'why'];
   var links = document.querySelectorAll('.nav__links a');
   var progress = document.getElementById('scroll-progress');
+  var cue = document.getElementById('scroll-cue');
   function onScroll() {
     var st = scrollY, mid = st + innerHeight * .35, act = 0;
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     if (progress && docHeight > 0) {
       progress.style.width = Math.min(100, Math.max(0, (st / docHeight) * 100)) + '%';
+    }
+    if (cue && st > 50) {
+      cue.style.opacity = '0';
+      setTimeout(function() {
+        cue.style.display = 'none';
+      }, 400);
+      cue = null; // only run once
     }
     ids.forEach(function (id, i) {
       var s = document.getElementById(id);
@@ -69,7 +102,14 @@
       var p = Math.min(1, (t - t0) / 1400);
       var e = 1 - Math.pow(1 - p, 3);
       b.innerHTML = (target * e).toFixed(dec) + suf;
-      if (p < 1) requestAnimationFrame(step);
+      if (p < 1) {
+        requestAnimationFrame(step);
+      } else {
+        b.classList.add('pop', 'flash');
+        setTimeout(function () {
+          b.classList.remove('pop', 'flash');
+        }, 300);
+      }
     }
     requestAnimationFrame(step);
   }
@@ -119,8 +159,8 @@
     }, 100);
   });
 
-  /* parallax on doodles */
-  if (!reduce) {
+  /* parallax on doodles fallback for non-Lenis scroll */
+  if (!reduce && typeof Lenis === 'undefined') {
     var shapes = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
     addEventListener('scroll', function () {
       var y = scrollY;
@@ -159,5 +199,35 @@
         b.style.transform = '';
       });
     });
+  }
+
+  /* Custom cursor using translate3d for hardware acceleration (zero lag) */
+  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var dot = document.querySelector('.cur-dot');
+    var ring = document.querySelector('.cur-ring');
+    if (dot && ring) {
+      var mx = 0, my = 0, rx = 0, ry = 0;
+      addEventListener('mousemove', function (e) {
+        mx = e.clientX;
+        my = e.clientY;
+        dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0)';
+      }, { passive: true });
+
+      (function loop() {
+        rx += (mx - rx) * 0.15;
+        ry += (my - ry) * 0.15;
+        ring.style.transform = 'translate3d(' + rx + 'px, ' + ry + 'px, 0)';
+        requestAnimationFrame(loop);
+      })();
+
+      document.querySelectorAll('a, button, .frame, .pad, .fact').forEach(function (el) {
+        el.addEventListener('mouseenter', function () {
+          ring.classList.add('hot');
+        });
+        el.addEventListener('mouseleave', function () {
+          ring.classList.remove('hot');
+        });
+      });
+    }
   }
 })();

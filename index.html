@@ -10,7 +10,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="grain"></div>
+  <div class="cur-dot"></div>
+  <div class="cur-ring"></div>
   <div id="scroll-progress"></div>
+
   <div class="topline"></div>
 
   <nav class="nav">
@@ -30,19 +34,26 @@
   <!-- ===================== ABOUT / LANDING ===================== -->
   <section class="band hello" id="about">
     <svg class="doodle blob" data-parallax="0.08" style="right:-3vw;top:4vw;width:clamp(90px,16vw,180px)" viewBox="0 0 200 200" aria-hidden="true"><path fill="var(--blue)" d="M44-64C56-55 62-39 67-23 72-7 75 9 70 23 64 37 49 48 33 56 16 64-3 68-22 64-41 60-60 47-68 30-77 12-74-11-65-29-56-47-41-60-24-67-7-73 11-73 26-71 40-69 51-64 44-64Z" transform="translate(100 100)"/></svg>
-    <div class="wrap">
+    <div class="wrap" style="position:relative;z-index:2">
+      <p class="kicker reveal"><span class="idx">00</span>about me</p>
       <div class="hello__row reveal">
         <span class="pill"><span class="live"></span>@anhlontrivo</span>
         <span class="pill">PTNK · Saigon · '08</span>
       </div>
-      <h1 class="reveal">Hi, I'm <span class="hl highlight">Minh&nbsp;Tri<svg class="underline-svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,8 C30,3 70,2 100,5" /></svg></span></h1>
-      <p class="hello__tag reveal">I am the <mark>limit breaker</mark> of short-form brainrot content - turning dry, complex topics, the kind you'd only expect to see in quick TikTok scrolls, into long-form videos that are genuinely enjoyable and entertaining.</p>
+      <h1 class="reveal">Hi, I'm <span class="highlight">Minh&nbsp;<span class="hl">Tri</span><svg class="underline-svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,8 C30,3 70,2 100,5" /></svg></span></h1>
+      <p class="hello__tag reveal">I am the <span class="highlight">limit breaker<svg class="underline-svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,8 C30,3 70,2 100,5" /></svg></span> of short-form brainrot content - turning dry, complex topics, the kind you'd only expect to see in quick TikTok scrolls, into long-form videos that are genuinely enjoyable and entertaining.</p>
 
       <!-- intro video -->
       <div class="video reveal">
-        <div class="frame"><div class="vph"></div><img src="images/intro-cover.jpg" alt="" loading="lazy" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1"></div>
+        <div class="frame"><div class="vph"></div><img src="images/intro-cover.webp" alt="" loading="lazy" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1"></div>
         <button class="play" aria-label="Play intro video"></button>
         <div class="video__note"><span class="anno purple">my best video! <svg class="arrow flip" viewBox="0 0 40 40" aria-hidden="true"><path d="M34 6 C 20 8, 8 16, 10 32 M10 32 L 4 24 M10 32 L 18 28"/></svg></span></div>
+      </div>
+
+      <!-- scroll cue -->
+      <div id="scroll-cue" class="reveal">
+        <span class="cue-txt">scroll to explore</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
       </div>
 
       <!-- about row: contact + bio + photos -->
@@ -64,9 +75,9 @@
             <p>It's all the same skill: making people <b>engage, fast</b>. That's why I'm pursuing the <b>Bachelor of Professional Communication</b> via the <b>Vice-Chancellor's Scholarship at RMIT</b>: I already have the ability to feel what makes a message land <i>and stay</i> - now I want to learn the <i>why</i>, and build it on purpose, for my community and for RMIT.</p>
           </div>
           <div class="about__photos" style="margin-top:1.6rem">
-            <div class="frame pink r-2"><div class="ph fp1"><img src="images/about-1.jpg" alt="" loading="lazy" onerror="this.remove()"><span>candid</span></div></div>
-            <div class="frame blue r3 tall"><div class="ph fp3"><img src="images/portrait.jpg" alt="" loading="lazy" onerror="this.remove()"><span>portrait</span></div></div>
-            <div class="frame green r2"><div class="ph fp2"><img src="images/about-2.jpg" alt="" loading="lazy" onerror="this.remove()"><span>creating</span></div></div>
+            <div class="frame pink r-2"><div class="ph fp1"><img src="images/about-1.webp" alt="" loading="lazy" onerror="this.remove()"><span>candid</span></div></div>
+            <div class="frame blue r3 tall"><div class="ph fp3"><img src="images/portrait.webp" alt="" loading="lazy" onerror="this.remove()"><span>portrait</span></div></div>
+            <div class="frame green r2"><div class="ph fp2"><img src="images/about-2.webp" alt="" loading="lazy" onerror="this.remove()"><span>creating</span></div></div>
           </div>
         </div>
       </div>
@@ -75,10 +86,10 @@
       <div style="margin-top:clamp(2.5rem,5vw,3.5rem)">
         <span class="anno blue">a few moments <svg class="arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 6 C 20 8, 32 16, 30 32 M30 32 L 36 24 M30 32 L 22 28"/></svg></span>
         <div class="gallery reveal-stagger reveal">
-          <div class="frame yellow r-2"><div class="ph fp4"><img src="images/moment-1.jpg" alt="" loading="lazy" onerror="this.remove()"><span>on set</span></div></div>
-          <div class="frame green r2"><div class="ph fp2"><img src="images/moment-2.jpg" alt="" loading="lazy" onerror="this.remove()"><span>on stage</span></div></div>
-          <div class="frame pink r3"><div class="ph fp1"><img src="images/moment-3.jpg" alt="" loading="lazy" onerror="this.remove()"><span>the team</span></div></div>
-          <div class="frame blue r-4"><div class="ph fp3"><img src="images/moment-4.jpg" alt="" loading="lazy" onerror="this.remove()"><span>game day</span></div></div>
+          <div class="frame yellow r-2"><div class="ph fp4"><img src="images/moment-1.webp" alt="" loading="lazy" onerror="this.remove()"><span>on set</span></div></div>
+          <div class="frame green r2"><div class="ph fp2"><img src="images/moment-2.webp" alt="" loading="lazy" onerror="this.remove()"><span>on stage</span></div></div>
+          <div class="frame pink r3"><div class="ph fp1"><img src="images/moment-3.webp" alt="" loading="lazy" onerror="this.remove()"><span>the team</span></div></div>
+          <div class="frame blue r-4"><div class="ph fp3"><img src="images/moment-4.webp" alt="" loading="lazy" onerror="this.remove()"><span>game day</span></div></div>
         </div>
       </div>
     </div>
@@ -86,8 +97,8 @@
 
   <!-- ===================== TIKTOK (dedicated section, §6.1b) ===================== -->
   <section class="band tiktok-band" id="tiktok">
-    <div class="wrap">
-      <p class="kicker reveal">the flagship</p>
+    <div class="wrap" style="position:relative;z-index:2">
+      <p class="kicker reveal"><span class="idx">01</span>the flagship</p>
       <h2 class="title reveal">Making Math<span class="sub">Go Viral.</span></h2>
       <p class="lead reveal">My educational math channel - where I take topics most people scroll past and turn them into long-form videos that are genuinely fun to watch. It's the clearest proof of the one thing I'm good at: making people care, fast.</p>
 
@@ -113,9 +124,9 @@
 
       <!-- vertical phone-mockup frames (9:16 correct here - it IS TikTok) -->
       <div class="tiktok-frames reveal-stagger reveal">
-        <div class="frame pink r-2"><div class="ph fp1"><img src="images/tiktok-1.jpg" alt="" loading="lazy" onerror="this.remove()"><span>tiktok</span></div></div>
-        <div class="frame blue r2"><div class="ph fp3"><img src="images/tiktok-2.jpg" alt="" loading="lazy" onerror="this.remove()"><span>tiktok</span></div></div>
-        <div class="frame green r-3"><div class="ph fp2"><img src="images/tiktok-3.jpg" alt="" loading="lazy" onerror="this.remove()"><span>tiktok</span></div></div>
+        <div class="frame pink r-2"><div class="ph fp1"><img src="images/tiktok-1.webp" alt="" loading="lazy" onerror="this.remove()"><span>tiktok</span></div></div>
+        <div class="frame blue r2"><div class="ph fp3"><img src="images/tiktok-2.webp" alt="" loading="lazy" onerror="this.remove()"><span>tiktok</span></div></div>
+        <div class="frame green r-3"><div class="ph fp2"><img src="images/tiktok-3.webp" alt="" loading="lazy" onerror="this.remove()"><span>tiktok</span></div></div>
         <span class="anno purple tiktok-anno">real videos <svg class="arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 6 C 20 8, 32 16, 30 32 M30 32 L 36 24 M30 32 L 22 28"/></svg></span>
       </div>
 
@@ -128,7 +139,7 @@
   <section class="band alt" id="resume">
     <svg class="doodle" data-parallax="0.14" style="left:6%;top:14%;width:clamp(34px,5vw,56px)" viewBox="0 0 100 100" aria-hidden="true"><path fill="var(--pink)" d="M50 4l11 30 32 1-25 20 9 31-27-19-27 19 9-31-25-20 32-1z"/></svg>
     <div class="wrap">
-      <p class="kicker reveal"><span class="idx">01</span>my resume</p>
+      <p class="kicker reveal"><span class="idx">02</span>my resume</p>
       <h2 class="title reveal">Education<span class="sub">&amp; achievements</span></h2>
       <p class="lead reveal">Mostly a math kid who kept saying yes to things outside the syllabus.</p>
 
@@ -151,9 +162,9 @@
       <!-- stat row REMOVED (revision 2) - numbers live only in the Impact band -->
 
       <div class="certs">
-        <div class="frame green r-2"><div class="ph fp2"><img src="https://drive.google.com/thumbnail?id=1KnBXrLn1rzEIkaIlTP4WM3gZ3Qd5DF2O&sz=w1600" alt="" loading="lazy" onerror="this.remove()"><span>3rd Prize · Math (Gr.8)</span></div></div>
-        <div class="frame pink r2"><div class="ph fp1"><img src="https://drive.google.com/thumbnail?id=1xBpL-zKX_BRzjdbrjKWb2NrwTGiTVTzY&sz=w1600" alt="" loading="lazy" onerror="this.remove()"><span>IELTS 8.0</span></div></div>
-        <div class="frame blue r-4"><div class="ph fp3"><img src="https://drive.google.com/thumbnail?id=1K8VhcyVuyS2qukmDw3kN-HAXRpwSCAy1&sz=w1600" alt="" loading="lazy" onerror="this.remove()"><span>Olympic 30/4</span></div></div>
+        <div class="frame green r-2"><div class="ph fp2"><img src="images/cert-math.webp" alt="" loading="lazy" onerror="this.remove()"><span>3rd Prize · Math (Gr.8)</span></div></div>
+        <div class="frame pink r2"><div class="ph fp1"><img src="images/cert-ielts.webp" alt="" loading="lazy" onerror="this.remove()"><span>IELTS 8.0</span></div></div>
+        <div class="frame blue r-4"><div class="ph fp3"><img src="images/cert-olympic.webp" alt="" loading="lazy" onerror="this.remove()"><span>Olympic 30/4</span></div></div>
         <div style="align-self:center"><span class="anno green"><svg class="arrow flip" viewBox="0 0 40 40" aria-hidden="true"><path d="M34 8 C 22 8, 10 16, 12 32 M12 32 L 6 24 M12 32 L 20 28"/></svg> proof of the grind</span></div>
       </div>
     </div>
@@ -162,7 +173,7 @@
   <!-- ===================== PROJECTS (film · badminton · charity · The LAB) ===================== -->
   <section class="band" id="projects">
     <div class="wrap">
-      <p class="kicker reveal"><span class="idx">02</span>my projects</p>
+      <p class="kicker reveal"><span class="idx">03</span>my projects</p>
       <h2 class="title reveal">Stuff I put<span class="sub">on screen</span></h2>
       <p class="lead reveal">The work where I actually learned how to reach people - each one through something that went wrong first.</p>
 
@@ -171,7 +182,7 @@
         <!-- 1. Short film -->
         <article class="proj reveal">
           <div class="proj__media">
-            <div class="frame blue r2"><div class="ph fp3"><img src="https://drive.google.com/thumbnail?id=1teMpOxZsHg6dwktgUlse7qyyLrXszQOT&sz=w1600" alt="" loading="lazy" onerror="this.remove()"><span>the film</span></div></div>
+            <div class="frame blue r2"><div class="ph fp3"><img src="images/film.webp" alt="" loading="lazy" onerror="this.remove()"><span>the film</span></div></div>
             <span class="anno green">1st place!</span>
           </div>
           <div>
@@ -189,7 +200,7 @@
         <!-- 2. Badminton club media -->
         <article class="proj reveal">
           <div class="proj__media">
-            <div class="frame yellow r-4"><div class="ph fp4"><img src="images/badminton.jpg" alt="" loading="lazy" onerror="this.remove()"><span>club media</span></div></div>
+            <div class="frame yellow r-4"><div class="ph fp4"><img src="images/badminton.webp" alt="" loading="lazy" onerror="this.remove()"><span>club media</span></div></div>
             <span class="anno blue">+300% growth →</span>
           </div>
           <div>
@@ -207,7 +218,7 @@
         <!-- 3. Charity concert -->
         <article class="proj reveal">
           <div class="proj__media">
-            <div class="frame pink r2"><div class="ph fp1"><img src="images/gsalctln.jpg" alt="" loading="lazy" onerror="this.remove()"><span>the concert</span></div></div>
+            <div class="frame pink r2"><div class="ph fp1"><img src="images/gsalctln.webp" alt="" loading="lazy" onerror="this.remove()"><span>the concert</span></div></div>
             <span class="anno purple">7M VND raised</span>
           </div>
           <div>
@@ -225,7 +236,7 @@
         <!-- 4. The LAB -->
         <article class="proj reveal">
           <div class="proj__media">
-            <div class="frame green r-2"><div class="ph fp2"><img src="https://drive.google.com/thumbnail?id=1rLP1_ZDnnz1vHDEla2N1oEAZVh7d-chp&sz=w1600" alt="" loading="lazy" onerror="this.remove()"><span>masterclass</span></div></div>
+            <div class="frame green r-2"><div class="ph fp2"><img src="images/lab.webp" alt="" loading="lazy" onerror="this.remove()"><span>masterclass</span></div></div>
           </div>
           <div>
             <div class="proj__role">head of advanced math · The LAB</div>
@@ -278,7 +289,7 @@
   <!-- ===================== RHYTHM ===================== -->
   <section class="band alt" id="rhythm">
     <div class="wrap">
-      <p class="kicker reveal"><span class="idx">03</span>my rhythm</p>
+      <p class="kicker reveal"><span class="idx">04</span>my rhythm</p>
       <h2 class="title reveal">When the<span class="sub">camera's off</span></h2>
       <p class="lead reveal">The work runs on everything else I'm into.</p>
 
@@ -312,7 +323,7 @@
   <section class="band why" id="why">
     <svg class="doodle" data-parallax="0.18" style="right:7%;top:18%;width:clamp(34px,5vw,56px)" viewBox="0 0 100 100" aria-hidden="true"><path fill="var(--blue)" d="M50 4l11 30 32 1-25 20 9 31-27-19-27 19 9-31-25-20 32-1z"/></svg>
     <div class="wrap">
-      <p class="kicker reveal"><span class="idx">04</span>why rmit</p>
+      <p class="kicker reveal"><span class="idx">05</span>why rmit</p>
       <h2 class="title reveal">What I'll bring<span class="sub">to RMIT.</span></h2>
       <div class="prose reveal">
         <p>Every project I've run points the same way: I want to do this for real. The <b>Bachelor of Professional Communication</b> at RMIT - through the <b>Vice-Chancellor's Scholarship</b> - is where I can turn instinct into craft: understand the <i>why</i> behind what makes a message land and stay, and build campaigns that actually mean something for my community and for RMIT.</p>
@@ -344,6 +355,7 @@
     <small>Võ Nguyễn Minh Tri - PTNK · Creator Portfolio 2026</small>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="app.js" defer></script>
 </body>
 </html>

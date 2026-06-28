@@ -1345,3 +1345,160 @@ b, strong {
   .tiktok-frames .frame { width: clamp(6rem, 28vw, 8.5rem); }
 }
 
+/* ===================== PREMIUM UPGRADES: LENIS, GRAIN, CUE, ZOOM, STAT POP ===================== */
+
+/* Lenis Scroll Smooth Support */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Subtle film-grain overlay */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Hero scroll to explore cue */
+#scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--muted);
+  font-family: var(--ui);
+  font-size: 0.8rem;
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+#scroll-cue .chevron {
+  width: 20px;
+  height: 20px;
+  animation: bounce-cue 1.8s infinite;
+}
+
+@keyframes bounce-cue {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #scroll-cue .chevron {
+    animation: none;
+  }
+}
+
+/* Project Card Hover zoom & wash */
+.proj__media .frame {
+  overflow: hidden;
+}
+.proj__media .frame img {
+  transition: transform 0.4s var(--ease);
+}
+
+.proj__media .frame .ph {
+  position: relative;
+}
+
+.proj__media .frame .ph::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--purple);
+  opacity: 0;
+  z-index: 2;
+  mix-blend-mode: color;
+  transition: opacity 0.4s var(--ease);
+}
+
+.proj h3 .v {
+  transition: transform 0.4s var(--bounce);
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .proj:hover .proj__media .frame img {
+    transform: scale(1.05);
+  }
+  .proj:hover .proj__media .frame .ph::after {
+    opacity: 0.12;
+  }
+  .proj:hover h3 .v {
+    transform: translateY(-3px);
+  }
+}
+
+/* Count-up stat completion pops */
+@keyframes stat-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.fig b.pop, .tstat b.pop {
+  animation: stat-pop 0.25s var(--bounce) forwards;
+}
+
+.fig b.flash, .tstat b.flash {
+  filter: brightness(1.4);
+  transition: filter 0.25s var(--ease);
+}
+
+/* Custom cursor */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a, button, .frame, .pad, .fact {
+    cursor: none;
+  }
+  .cur-dot, .cur-ring {
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+  }
+  .cur-dot {
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    background: var(--ink);
+  }
+  .cur-ring {
+    width: 34px;
+    height: 34px;
+    margin: -17px 0 0 -17px;
+    border: 2px solid var(--ink);
+    transition: width 0.25s cubic-bezier(.34,1.4,.5,1), height 0.25s cubic-bezier(.34,1.4,.5,1), margin 0.25s cubic-bezier(.34,1.4,.5,1), background 0.25s, border-color 0.25s;
+  }
+  .cur-ring.hot {
+    width: 56px;
+    height: 56px;
+    margin: -28px 0 0 -28px;
+    background: rgba(139,92,246,0.15);
+    border-color: var(--purple);
+  }
+}
+

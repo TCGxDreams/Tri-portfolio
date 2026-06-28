@@ -248,24 +248,30 @@
       }
     });
 
-    // Image Lightbox
-    document.querySelectorAll('.frame img').forEach(function (img) {
-      img.style.cursor = 'zoom-in';
-      img.addEventListener('click', function (e) {
-        e.stopPropagation();
-        ovMedia.hidden = false;
-        sc.hidden = true;
-        var src = img.currentSrc || img.src;
-        // Swap sz=w1600 to sz=w2000 for high resolution Drive images
-        if (src.indexOf('sz=w1600') > -1) {
-          src = src.replace('sz=w1600', 'sz=w2000');
-        }
-        ovImg.src = src;
-        
-        var capSpan = img.closest('.ph') && img.closest('.ph').querySelector('span');
-        ovCap.textContent = capSpan ? capSpan.textContent : '';
-        openOverlay();
-      });
+    // Image Lightbox - Bind to the .frame element to ensure clicks work even if covered by wash overlays
+    document.querySelectorAll('.frame').forEach(function (frame) {
+      var img = frame.querySelector('img');
+      if (img) {
+        frame.style.cursor = 'zoom-in';
+        frame.addEventListener('click', function (e) {
+          e.stopPropagation();
+          // Verify that the image wasn't removed (e.g. by onerror fallback handler)
+          var currentImg = frame.querySelector('img');
+          if (!currentImg) return;
+
+          ovMedia.hidden = false;
+          sc.hidden = true;
+          var src = currentImg.currentSrc || currentImg.src;
+          if (src.indexOf('sz=w1600') > -1) {
+            src = src.replace('sz=w1600', 'sz=w2000');
+          }
+          ovImg.src = src;
+
+          var capSpan = frame.querySelector('.ph span');
+          ovCap.textContent = capSpan ? capSpan.textContent : '';
+          openOverlay();
+        });
+      }
     });
 
     // Story Cards Map

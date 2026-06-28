@@ -1515,6 +1515,10 @@ html.lenis, html.lenis body {
   display: none !important;
 }
 
+#overlay [hidden] {
+  display: none !important;
+}
+
 .ov-close {
   position: absolute;
   top: 1.5rem;

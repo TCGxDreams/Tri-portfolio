@@ -201,4 +201,108 @@
     });
   }
 
+  /* Modal Overlay (Image Lightbox & Story Cards) */
+  var ov = document.getElementById('overlay');
+  if (ov) {
+    var ovImg = ov.querySelector('.ov-img');
+    var ovCap = ov.querySelector('.ov-cap');
+    var sc = ov.querySelector('.ov-story');
+    var ovMedia = ov.querySelector('.ov-media');
+    var lastFocusedEl = null;
+
+    var openOverlay = function () {
+      lastFocusedEl = document.activeElement;
+      ov.removeAttribute('hidden');
+      ov.offsetHeight; // Force layout reflow
+      var closeBtn = ov.querySelector('.ov-close');
+      if (closeBtn) closeBtn.focus();
+      document.body.style.overflow = 'hidden';
+      if (typeof lenis !== 'undefined') {
+        lenis.stop(); // Stop scroll inertia if Lenis is active
+      }
+    };
+
+    var closeOverlay = function () {
+      ov.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+      if (typeof lenis !== 'undefined') {
+        lenis.start();
+      }
+      if (lastFocusedEl) {
+        lastFocusedEl.focus();
+      }
+    };
+
+    var closeBtn = ov.querySelector('.ov-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeOverlay);
+    }
+    ov.addEventListener('click', function (e) {
+      if (e.target === ov) {
+        closeOverlay();
+      }
+    });
+    addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !ov.hasAttribute('hidden')) {
+        closeOverlay();
+      }
+    });
+
+    // Image Lightbox
+    document.querySelectorAll('.frame img').forEach(function (img) {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', function (e) {
+        e.stopPropagation();
+        ovMedia.hidden = false;
+        sc.hidden = true;
+        var src = img.currentSrc || img.src;
+        // Swap sz=w1600 to sz=w2000 for high resolution Drive images
+        if (src.indexOf('sz=w1600') > -1) {
+          src = src.replace('sz=w1600', 'sz=w2000');
+        }
+        ovImg.src = src;
+        
+        var capSpan = img.closest('.ph') && img.closest('.ph').querySelector('span');
+        ovCap.textContent = capSpan ? capSpan.textContent : '';
+        openOverlay();
+      });
+    });
+
+    // Story Cards Map
+    var STORIES = {
+      football: {
+        title: "Champion — PTNK Football",
+        body: "The PTNK Sports League is the school's biggest annual competition, and squad selection is on merit, not signup — I was picked as the main striker for the Maths-Interdisciplinary (TLN) team on the strength of my training and tactical reliability. Across three years we grew up together: an inexperienced roster took a surprise 3rd in the Thủ Đức bracket in Grade 10; we pushed to the quarterfinals in Grade 11 and learned composure under pressure; and in Grade 12, at full maturity, we won the School Championship with a decisive final over 11 Toán-LN1. It taught me that real teams are built on discipline, communication and shared responsibility — not talent alone."
+      },
+      ngat: {
+        title: "Producer — band \"Ngắt\"",
+        body: "I produce for the student band 'Ngắt' — shaping arrangement, sound and pacing. A lot of my instinct for rhythm and timing as a video editor was trained right here."
+      },
+      ocean: {
+        title: "Deputy Comms Head — Ocean Education & Training",
+        body: "As deputy head of communications at Ocean Education & Training, I helped run the organisation's content and outreach."
+      },
+      tiktokteam: {
+        title: "Top contributor — PTNK TikTok Team",
+        body: "I'm a top contributor on PTNK's official TikTok team, helping make content that represents the school to a wider audience."
+      },
+      sportsfest: {
+        title: "Organizing Committee — PTNK Sports Festival",
+        body: "I served on the organising committee for the PTNK Sports Festival, the school's largest annual athletic event — helping run the operations behind the brackets and matches."
+      }
+    };
+
+    document.querySelectorAll('.role[data-story]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var s = STORIES[btn.getAttribute('data-story')];
+        if (s) {
+          ovMedia.hidden = true;
+          sc.hidden = false;
+          sc.querySelector('h3').textContent = s.title;
+          sc.querySelector('p').textContent = s.body;
+          openOverlay();
+        }
+      });
+    });
+  }
 })();

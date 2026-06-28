@@ -1049,6 +1049,12 @@ b, strong {
   padding: 0;
 }
 .roles li {
+  display: inline-block;
+}
+.roles .role {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-family: var(--ui);
   font-weight: 600;
   font-size: .82rem;
@@ -1056,8 +1062,24 @@ b, strong {
   border-radius: 999px;
   padding: .45rem .85rem;
   background: #fff;
+  cursor: pointer;
+  color: var(--ink);
+  transition: transform .25s var(--bounce), background-color .25s var(--ease);
+  will-change: transform;
 }
-.roles li b { color: var(--violet); font-weight: 700; }
+.roles .role:hover {
+  transform: translateY(-2.5px);
+  background-color: var(--bg2);
+}
+.roles .role b { color: var(--violet); font-weight: 700; }
+.roles .role .afford {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--pink);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 0.2rem;
+}
 
 .impact { background: #5B16E0; color: #ffffff; position: relative; overflow: hidden; }
 .impact::after {
@@ -1466,5 +1488,131 @@ html.lenis, html.lenis body {
 .fig b.flash, .tstat b.flash {
   filter: brightness(1.4);
   transition: filter 0.25s var(--ease);
+}
+
+/* Overlay Lightbox & Story Modal */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.82);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 2rem;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#overlay:not([hidden]) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#overlay[hidden] {
+  display: none !important;
+}
+
+.ov-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 2.5rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10001;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s var(--ease);
+}
+
+.ov-close:hover {
+  transform: scale(1.1) rotate(90deg);
+}
+
+.ov-media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 92vw;
+  max-height: 88vh;
+  transform: scale(0.9);
+  transition: transform 0.3s var(--bounce);
+}
+
+#overlay:not([hidden]) .ov-media {
+  transform: scale(1);
+}
+
+.ov-img {
+  max-width: 92vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border: 4px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.ov-cap {
+  color: #fff;
+  font-family: var(--ui);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 0.8rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.4rem 1rem;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ov-story {
+  max-width: 52ch;
+  background: #fff;
+  padding: 2.5rem;
+  transform: scale(0.9);
+  transition: transform 0.3s var(--bounce);
+}
+
+#overlay:not([hidden]) .ov-story {
+  transform: scale(1);
+}
+
+.ov-story h3 {
+  font-family: var(--disp);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--rmit);
+  letter-spacing: -0.02em;
+}
+
+.ov-story p {
+  font-family: var(--ui);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  line-height: 1.6;
+  margin: 0;
+  color: var(--ink);
+}
+
+/* Reduced motion guards */
+@media (prefers-reduced-motion: reduce) {
+  #overlay {
+    transition: none !important;
+  }
+  .ov-media, .ov-story {
+    transform: none !important;
+    transition: none !important;
+  }
 }
 

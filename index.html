@@ -252,11 +252,11 @@
       <!-- more roles -->
       <p class="kicker reveal" style="margin-top:clamp(2rem,4vw,3rem)">and a few more hats</p>
       <ul class="roles reveal">
-        <li>Producer - band <b>"Ngắt"</b></li>
-        <li>Deputy Comms Head - <b>Ocean</b> Education &amp; Training</li>
-        <li>Top contributor - <b>PTNK TikTok Team</b></li>
-        <li>Champion (striker) - <b>PTNK Football</b></li>
-        <li>Organizing Committee - <b>PTNK Sports Festival</b></li>
+        <li><button class="role" data-story="ngat" aria-haspopup="dialog">Producer — band <b>"Ngắt"</b> <span class="afford">✦ story</span></button></li>
+        <li><button class="role" data-story="ocean" aria-haspopup="dialog">Deputy Comms Head — <b>Ocean</b> Education &amp; Training <span class="afford">✦ story</span></button></li>
+        <li><button class="role" data-story="tiktokteam" aria-haspopup="dialog">Top contributor — <b>PTNK TikTok Team</b> <span class="afford">✦ story</span></button></li>
+        <li><button class="role" data-story="football" aria-haspopup="dialog">Champion (striker) — <b>PTNK Football</b> <span class="afford">✦ story</span></button></li>
+        <li><button class="role" data-story="sportsfest" aria-haspopup="dialog">Organizing Committee — <b>PTNK Sports Festival</b> <span class="afford">✦ story</span></button></li>
       </ul>
     </div>
   </section>
@@ -352,6 +352,19 @@
     </div>
     <small>Võ Nguyễn Minh Tri - PTNK · Creator Portfolio 2026</small>
   </footer>
+
+  <!-- Lightbox & Story Overlay Dialog -->
+  <div id="overlay" hidden role="dialog" aria-modal="true">
+    <button class="ov-close" aria-label="Close">×</button>
+    <figure class="ov-media">
+      <img class="ov-img" alt="">
+      <figcaption class="ov-cap"></figcaption>
+    </figure>
+    <div class="ov-story board">
+      <h3></h3>
+      <p></p>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="app.js" defer></script>

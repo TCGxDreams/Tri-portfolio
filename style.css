@@ -1495,7 +1495,7 @@ html.lenis, html.lenis body {
   position: fixed;
   inset: 0;
   background: rgba(10, 10, 15, 0.82);
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 10000;
@@ -1503,20 +1503,37 @@ html.lenis, html.lenis body {
   backdrop-filter: blur(4px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
 }
 
-#overlay:not([hidden]) {
-  opacity: 1;
+#overlay.open {
+  display: flex;
   pointer-events: auto;
+  animation: fade-in 0.3s ease forwards;
 }
 
-#overlay[hidden] {
+#overlay .ov-media,
+#overlay .ov-story {
   display: none !important;
 }
 
-#overlay [hidden] {
-  display: none !important;
+#overlay.show-image .ov-media {
+  display: flex !important;
+  animation: scale-in 0.3s var(--bounce) forwards;
+}
+
+#overlay.show-story .ov-story {
+  display: block !important;
+  animation: scale-in 0.3s var(--bounce) forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.9); }
+  to { transform: scale(1); }
 }
 
 .ov-close {
@@ -1553,9 +1570,7 @@ html.lenis, html.lenis body {
   transition: transform 0.3s var(--bounce);
 }
 
-#overlay:not([hidden]) .ov-media {
-  transform: scale(1);
-}
+/* replaced by animation keyframes scale-in */
 
 .ov-img {
   max-width: 92vw;
@@ -1587,9 +1602,7 @@ html.lenis, html.lenis body {
   transition: transform 0.3s var(--bounce);
 }
 
-#overlay:not([hidden]) .ov-story {
-  transform: scale(1);
-}
+/* replaced by animation keyframes scale-in */
 
 .ov-story h3 {
   font-family: var(--disp);
@@ -1613,10 +1626,75 @@ html.lenis, html.lenis body {
 @media (prefers-reduced-motion: reduce) {
   #overlay {
     transition: none !important;
+    animation: none !important;
   }
   .ov-media, .ov-story {
     transform: none !important;
     transition: none !important;
+    animation: none !important;
   }
+}
+
+.ov-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--purple);
+  color: #fff;
+  border-radius: 99px;
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.ov-link:hover {
+  background: var(--pink);
+  transform: translateY(-2px);
+}
+
+/* External link badges and CTAs */
+.frame[data-href] {
+  position: relative;
+}
+.ext-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--ink);
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--ui);
+  font-weight: 700;
+  font-size: 0.9rem;
+  z-index: 10;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+.frame[data-href]:hover .ext-badge {
+  transform: scale(1.1) rotate(15deg);
+  background: var(--pink);
+}
+
+.proj-cta {
+  font-family: var(--ui);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-top: 0.2rem;
+  transition: transform 0.2s var(--ease), color 0.2s var(--ease);
+}
+.proj:hover .proj-cta {
+  color: var(--pink);
+  transform: translateY(-2px);
 }
 

@@ -280,10 +280,11 @@
         <!-- 1. Short film -->
         <article class="proj reveal">
           <div class="proj__media">
-            <div class="frame blue r2">
+            <div class="frame blue r2" data-href="https://youtu.be/3KpxeV_SI2w">
               <div class="ph fp3"><img src="images/film.webp" alt="" loading="lazy" onerror="this.remove()"><span>the
-                  film</span></div>
+                  film</span><div class="ext-badge" aria-hidden="true">↗</div></div>
             </div>
+            <div class="proj-cta">▶ Watch on YouTube</div>
             <span class="anno green">1st place!</span>
           </div>
           <div>
@@ -305,14 +306,15 @@
               media is delegation held together by one clear vision.</p>
           </div>
         </article>
-
+ 
         <!-- 2. Badminton club media -->
         <article class="proj reveal">
           <div class="proj__media">
-            <div class="frame yellow r-4">
+            <div class="frame yellow r-4" data-href="https://www.facebook.com/ptnkbadmintonclub">
               <div class="ph fp4"><img src="images/badminton.webp" alt="" loading="lazy"
-                  onerror="this.remove()"><span>club media</span></div>
+                  onerror="this.remove()"><span>club media</span><div class="ext-badge" aria-hidden="true">↗</div></div>
             </div>
+            <div class="proj-cta">View on Facebook ↗</div>
             <span class="anno blue">+300% growth →</span>
           </div>
           <div>
@@ -335,14 +337,15 @@
               channel is an audience problem, not a posting problem.</p>
           </div>
         </article>
-
+ 
         <!-- 3. Charity concert -->
         <article class="proj reveal">
           <div class="proj__media">
-            <div class="frame pink r2">
+            <div class="frame pink r2" data-href="https://www.facebook.com/share/p/17Ytg231gt/">
               <div class="ph fp1"><img src="images/gsalctln.webp" alt="" loading="lazy"
-                  onerror="this.remove()"><span>the concert</span></div>
+                  onerror="this.remove()"><span>the concert</span><div class="ext-badge" aria-hidden="true">↗</div></div>
             </div>
+            <div class="proj-cta">View on Facebook ↗</div>
             <span class="anno purple">7M VND raised</span>
           </div>
           <div>
@@ -364,14 +367,15 @@
               impact needs structured, entrepreneurial leadership - not just good intentions.</p>
           </div>
         </article>
-
+ 
         <!-- 4. The LAB -->
         <article class="proj reveal">
           <div class="proj__media">
-            <div class="frame green r-2">
+            <div class="frame green r-2" data-href="https://www.facebook.com/profile.php?id=61567065251602">
               <div class="ph fp2"><img src="images/lab.webp" alt="" loading="lazy"
-                  onerror="this.remove()"><span>masterclass</span></div>
+                  onerror="this.remove()"><span>masterclass</span><div class="ext-badge" aria-hidden="true">↗</div></div>
             </div>
+            <div class="proj-cta">View on Facebook ↗</div>
           </div>
           <div>
             <div class="proj__role">head of advanced math · The LAB</div>
@@ -594,16 +598,10 @@
   </footer>
 
   <!-- Lightbox & Story Overlay Dialog -->
-  <div id="overlay" hidden role="dialog" aria-modal="true">
+  <div id="overlay" role="dialog" aria-modal="true">
     <button class="ov-close" aria-label="Close">×</button>
-    <figure class="ov-media">
-      <img class="ov-img" alt="">
-      <figcaption class="ov-cap"></figcaption>
-    </figure>
-    <div class="ov-story board">
-      <h3></h3>
-      <p></p>
-    </div>
+    <figure class="ov-media"><img class="ov-img" alt=""><figcaption class="ov-cap"></figcaption></figure>
+    <div class="ov-story board"><h3></h3><p></p><a class="ov-link" target="_blank" rel="noopener" hidden></a></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>

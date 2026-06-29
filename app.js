@@ -208,12 +208,13 @@
     var ovCap = ov.querySelector('.ov-cap');
     var sc = ov.querySelector('.ov-story');
     var ovMedia = ov.querySelector('.ov-media');
+    var ovLink = sc.querySelector('.ov-link');
     var lastFocusedEl = null;
 
-    var openOverlay = function () {
+    var openOverlay = function (mode) {
       lastFocusedEl = document.activeElement;
-      ov.removeAttribute('hidden');
-      ov.offsetHeight; // Force layout reflow
+      ov.classList.remove('show-image', 'show-story');
+      ov.classList.add('open', mode);
       var closeBtn = ov.querySelector('.ov-close');
       if (closeBtn) closeBtn.focus();
       document.body.style.overflow = 'hidden';
@@ -223,7 +224,8 @@
     };
 
     var closeOverlay = function () {
-      ov.setAttribute('hidden', '');
+      ov.classList.remove('open', 'show-image', 'show-story');
+      if (ovImg) ovImg.removeAttribute('src'); // wipe the old image so it can't linger
       document.body.style.overflow = '';
       if (typeof lenis !== 'undefined') {
         lenis.start();
@@ -238,55 +240,62 @@
       closeBtn.addEventListener('click', closeOverlay);
     }
     ov.addEventListener('click', function (e) {
-      if (e.target === ov) {
+      if (e.target === ov || e.target.closest('.ov-close')) {
         closeOverlay();
       }
     });
     addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !ov.hasAttribute('hidden')) {
+      if (e.key === 'Escape' && ov.classList.contains('open')) {
         closeOverlay();
       }
     });
 
-    // Image Lightbox - Bind to the .frame element to ensure clicks work even if covered by wash overlays
-    document.querySelectorAll('.frame').forEach(function (frame) {
-      var img = frame.querySelector('img');
-      if (img) {
-        frame.style.cursor = 'zoom-in';
-        frame.addEventListener('click', function (e) {
-          e.stopPropagation();
-          // Verify that the image wasn't removed (e.g. by onerror fallback handler)
-          var currentImg = frame.querySelector('img');
-          if (!currentImg) return;
+    // Image Lightbox - delegation to all .frame img tags
+    document.addEventListener('click', function (e) {
+      var img = e.target.closest('.frame img');
+      if (!img || img.closest('.video') || img.closest('[data-href]')) return; // skip the intro video AND any media that links out (§5.4c)
+      e.stopPropagation();
+      var src = img.currentSrc || img.src;
+      src = src.replace('sz=w1600', 'sz=w2000'); // bigger size for Drive thumbnails; harmless otherwise
+      ovImg.src = src;
+      var capSpan = img.closest('.ph') && img.closest('.ph').querySelector('span');
+      ovCap.textContent = capSpan ? capSpan.textContent : '';
+      openOverlay('show-image');
+    });
 
-          ovMedia.hidden = false;
-          sc.hidden = true;
-          var src = currentImg.currentSrc || currentImg.src;
-          if (src.indexOf('sz=w1600') > -1) {
-            src = src.replace('sz=w1600', 'sz=w2000');
-          }
-          ovImg.src = src;
+    /* give every framed image that is NOT a link a zoom-in cursor */
+    document.querySelectorAll('.frame img').forEach(function (i) {
+      if (!i.closest('[data-href]')) i.style.cursor = 'zoom-in';
+    });
 
-          var capSpan = frame.querySelector('.ph span');
-          ovCap.textContent = capSpan ? capSpan.textContent : '';
-          openOverlay();
-        });
-      }
+    // External media links click handler
+    document.querySelectorAll('.frame[data-href]').forEach(function (f) {
+      f.style.cursor = 'pointer';
+      f.addEventListener('click', function (e) {
+        e.stopPropagation();
+        window.open(f.dataset.href, '_blank', 'noopener');
+      });
     });
 
     // Story Cards Map
     var STORIES = {
       football: {
         title: "Champion - PTNK Football",
-        body: "The PTNK Sports League is the school's biggest annual competition, and squad selection is on merit, not signup - I was picked as the main striker for the Maths-Interdisciplinary (TLN) team on the strength of my training and tactical reliability. Across three years we grew up together: an inexperienced roster took a surprise 3rd in the Thủ Đức bracket in Grade 10; we pushed to the quarterfinals in Grade 11 and learned composure under pressure; and in Grade 12, at full maturity, we won the School Championship with a decisive final over 11 Toán-LN1. It taught me that real teams are built on discipline, communication and shared responsibility - not talent alone."
+        body: "The PTNK Sports League is the school's biggest annual competition, and squad selection is on merit, not signup - I was picked as the main striker for the Maths-Interdisciplinary (TLN) team on the strength of my training and tactical reliability. Across three years we grew up together: an inexperienced roster took a surprise 3rd in the Thủ Đức bracket in Grade 10; we pushed to the quarterfinals in Grade 11 and learned composure under pressure; and in Grade 12, at full maturity, we won the School Championship with a decisive final over 11 Toán-LN1. It taught me that real teams are built on discipline, communication and shared responsibility - not talent alone.",
+        href: "https://drive.google.com/drive/folders/1KJL920AnXWk4jdHJig54x533dOMeNyf_",
+        cta: "View the album ↗"
       },
       ngat: {
         title: "Producer - band \"Ngắt\"",
-        body: "I produce for the student band 'Ngắt' - shaping arrangement, sound and pacing. A lot of my instinct for rhythm and timing as a video editor was trained right here."
+        body: "I produce music for the band Ngắt - shaping arrangement, sound and pacing. A lot of my instinct for rhythm and timing as a video editor was trained right here.",
+        href: "https://www.facebook.com/profile.php?id=61560084032822",
+        cta: "View on Facebook ↗"
       },
       ocean: {
         title: "Deputy Comms Head - Ocean Education & Training",
-        body: "As deputy head of communications at Ocean Education & Training, I helped run the organisation's content and outreach."
+        body: "As deputy head of communications at Ocean Education & Training, I helped run the organisation's content and outreach.",
+        href: "https://www.facebook.com/TTOceanEducation",
+        cta: "View on Facebook ↗"
       },
       tiktokteam: {
         title: "Top contributor - PTNK TikTok Team",
@@ -302,11 +311,16 @@
       btn.addEventListener('click', function () {
         var s = STORIES[btn.getAttribute('data-story')];
         if (s) {
-          ovMedia.hidden = true;
-          sc.hidden = false;
           sc.querySelector('h3').textContent = s.title;
           sc.querySelector('p').textContent = s.body;
-          openOverlay();
+          if (s.href) {
+            ovLink.hidden = false;
+            ovLink.href = s.href;
+            ovLink.textContent = s.cta || 'Open ↗';
+          } else {
+            ovLink.hidden = true;
+          }
+          openOverlay('show-story');
         }
       });
     });

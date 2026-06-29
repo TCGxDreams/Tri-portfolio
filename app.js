@@ -26,23 +26,49 @@
     });
   }
 
-  /* reveal + arrow draw-in */
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        e.target.querySelectorAll && e.target.querySelectorAll('.arrow').forEach(function (a) {
-          a.classList.add('in');
+  /* reveal + arrow draw-in (fail-safe under Revision 13) */
+  document.documentElement.classList.add('js');
+  var reveals = document.querySelectorAll('.reveal, .arrow');
+  var show = function (el) {
+    el.classList.add('in');
+    if (el.querySelectorAll) {
+      el.querySelectorAll('.arrow').forEach(function (a) {
+        a.classList.add('in');
+      });
+    }
+  };
+
+  try {
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es, o) {
+        es.forEach(function (e) {
+          if (e.isIntersecting) {
+            show(e.target);
+            o.unobserve(e.target);
+          }
         });
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
-  document.querySelectorAll('.reveal').forEach(function (el) {
-    io.observe(el);
-  });
-  document.querySelectorAll('.arrow').forEach(function (a) {
-    io.observe(a);
+      }, { rootMargin: '0px 0px -8% 0px' });
+      reveals.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) {
+          show(el); // already in view on load -> show immediately
+        } else {
+          io.observe(el);
+        }
+      });
+    } else {
+      reveals.forEach(show);
+    }
+  } catch (err) {
+    console.warn("IntersectionObserver fail-safe triggered:", err);
+    reveals.forEach(show);
+  }
+
+  // Hard fallback: nothing stays hidden - reveal all shortly after window load
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      reveals.forEach(show);
+    }, 800);
   });
 
   /* active nav link + progress bar + scroll cue */

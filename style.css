@@ -1005,6 +1005,13 @@ b, strong {
   transform: none;
 }
 
+/* fail-safe: if JS is off, show everything */
+html:not(.js) .reveal,
+html:not(.js) .reveal-stagger > * {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;

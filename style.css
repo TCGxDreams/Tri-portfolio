@@ -1040,46 +1040,7 @@ b, strong {
 .callout .board__hd { color: var(--pink); margin-bottom: .6rem; }
 .callout p { margin: 0; }
 
-.roles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .6rem;
-  margin-top: 1.8rem;
-  list-style: none;
-  padding: 0;
-}
-.roles li {
-  display: inline-block;
-}
-.roles .role {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--ui);
-  font-weight: 600;
-  font-size: .82rem;
-  border: 2px solid var(--ink);
-  border-radius: 999px;
-  padding: .45rem .85rem;
-  background: #fff;
-  cursor: pointer;
-  color: var(--ink);
-  transition: transform .25s var(--bounce), background-color .25s var(--ease);
-  will-change: transform;
-}
-.roles .role:hover {
-  transform: translateY(-2.5px);
-  background-color: var(--bg2);
-}
-.roles .role b { color: var(--violet); font-weight: 700; }
-.roles .role .afford {
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: var(--pink);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-left: 0.2rem;
-}
+/* roles strip removed in revision 12 */
 
 .impact { background: #5B16E0; color: #ffffff; position: relative; overflow: hidden; }
 .impact::after {
@@ -1511,18 +1472,12 @@ html.lenis, html.lenis body {
   animation: fade-in 0.3s ease forwards;
 }
 
-#overlay .ov-media,
-#overlay .ov-story {
+#overlay .ov-media {
   display: none !important;
 }
 
 #overlay.show-image .ov-media {
   display: flex !important;
-  animation: scale-in 0.3s var(--bounce) forwards;
-}
-
-#overlay.show-story .ov-story {
-  display: block !important;
   animation: scale-in 0.3s var(--bounce) forwards;
 }
 
@@ -1594,65 +1549,17 @@ html.lenis, html.lenis body {
   text-transform: uppercase;
 }
 
-.ov-story {
-  max-width: 52ch;
-  background: #fff;
-  padding: 2.5rem;
-  transform: scale(0.9);
-  transition: transform 0.3s var(--bounce);
-}
-
-/* replaced by animation keyframes scale-in */
-
-.ov-story h3 {
-  font-family: var(--disp);
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  text-transform: uppercase;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  color: var(--rmit);
-  letter-spacing: -0.02em;
-}
-
-.ov-story p {
-  font-family: var(--ui);
-  font-size: clamp(0.95rem, 2vw, 1.05rem);
-  line-height: 1.6;
-  margin: 0;
-  color: var(--ink);
-}
-
 /* Reduced motion guards */
 @media (prefers-reduced-motion: reduce) {
   #overlay {
     transition: none !important;
     animation: none !important;
   }
-  .ov-media, .ov-story {
+  .ov-media {
     transform: none !important;
     transition: none !important;
     animation: none !important;
   }
-}
-
-.ov-link {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.6rem 1.2rem;
-  background: var(--purple);
-  color: #fff;
-  border-radius: 99px;
-  font-family: var(--ui);
-  font-weight: 600;
-  font-size: 0.85rem;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: background-color 0.2s var(--ease), transform 0.2s var(--ease);
-}
-.ov-link:hover {
-  background: var(--pink);
-  transform: translateY(-2px);
 }
 
 /* External link badges and CTAs */
